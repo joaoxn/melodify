@@ -17,24 +17,23 @@ public class ErrorHandler {
         HttpStatusCode status = HttpStatus.INTERNAL_SERVER_ERROR;
         String message = e.getMessage();
         logError(status, message, "Exception");
-        return ResponseEntity.internalServerError().body(new CustomErrorResponse(status, "Erro inesperado: "+message));
+        return ResponseEntity.internalServerError().body(new ExceptionResponse(status, "Erro inesperado: "+message));
     }
-
 
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<?> handler(ResponseStatusException e) {
         HttpStatusCode status = e.getStatusCode();
         String message = e.getMessage();
         logError(status, message, "ResponseStatusException");
-        return ResponseEntity.status(status).body(new CustomErrorResponse(status, message));
+        return ResponseEntity.status(status).body(new ExceptionResponse(status, message));
     }
 
-    @ExceptionHandler(CustomErrorException.class)
-    public ResponseEntity<?> handler(CustomErrorException e) {
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<?> handler(CustomException e) {
         HttpStatusCode status = e.getStatusCode();
         String message = e.getMessage();
         logError(status, message, "intencional");
-        return ResponseEntity.status(status).body(new CustomErrorResponse(status, message));
+        return ResponseEntity.status(status).body(new ExceptionResponse(status, message));
     }
 
     public void logError(HttpStatusCode status, String message, String type) {

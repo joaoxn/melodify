@@ -10,12 +10,6 @@ public class ExceptionResponse {
     private final HttpStatusCode erro;
     private final String mensagem;
 
-    public ExceptionResponse(@NonNull HttpStatusCode error) {
-        this.status = error.value();
-        this.erro = error;
-        this.mensagem = "Um erro inesperado ocorreu";
-    }
-
     public ExceptionResponse(@NonNull HttpStatusCode error, @NonNull String message) {
         this.status = error.value();
         this.erro = error;

@@ -15,4 +15,10 @@ public class RoleEntity implements Serializable {
 
     @Column(length = 40, nullable = false)
     private String name;
+
+    public RoleEntity(String name) {
+        this.name = name;
+    }
+
+    public RoleEntity() {}
 }

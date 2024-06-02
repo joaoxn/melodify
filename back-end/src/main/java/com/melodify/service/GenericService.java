@@ -16,26 +16,26 @@ public abstract class GenericService<E, DTO, R extends JpaRepository<E, Long>> {
     private final R repository;
 
     public E get(Long id) {
-        log.info("GenericServiceImpl.get({}) -> Buscando entidade por id no repositório", id);
+        log.info("GenericService.get({}) -> Buscando entidade por id no repositório", id);
         return repository.findById(id)
                 .orElseThrow(() -> new CustomException(
                         HttpStatus.NOT_FOUND, "Entidade não encontrada com ID: " + id));
     }
 
     public List<E> getAll() {
-        log.info("GenericServiceImpl.getAll() -> Buscando todas as entidades no repositório");
+        log.info("GenericService.getAll() -> Buscando todas as entidades no repositório");
         return repository.findAll();
     }
 
     public E create(DTO entity) {
-        log.info("GenericServiceImpl.create(DTO entity) -> Criando entidade baseado na Requisição dada");
+        log.info("GenericService.create(DTO entity) -> Criando entidade baseado na Requisição dada");
         log.info("SERVICE equalProperties() -> ( Chamada: create(...) ) Transferindo dados da Requisição para uma Entidade própria");
         E entitySave = equalProperties(newEntity(), entity);
         return repository.save(entitySave);
     }
 
     public E alter(Long id, DTO data) {
-        log.info("GenericServiceImpl.alter({}, DTO data) -> Alterando por id baseado na Requisição dada", id);
+        log.info("GenericService.alter({}, DTO data) -> Alterando por id baseado na Requisição dada", id);
         E entityFound = repository.findById(id)
                 .orElseThrow(
                         () -> new CustomException(
@@ -46,7 +46,7 @@ public abstract class GenericService<E, DTO, R extends JpaRepository<E, Long>> {
     }
 
     public String delete(Long id) {
-        log.info("GenericServiceImpl.delete({}) -> Deletando entidade com id informado", id);
+        log.info("GenericService.delete({}) -> Deletando entidade com id informado", id);
         E entity = repository.findById(id)
                 .orElseThrow(() -> new CustomException(
                         HttpStatus.NOT_FOUND, "Entidade não encontrada com ID: " + id));

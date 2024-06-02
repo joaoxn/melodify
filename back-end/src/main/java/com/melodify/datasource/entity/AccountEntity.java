@@ -3,10 +3,12 @@ package com.melodify.datasource.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 @Entity
 @Table(name = "account")
-public class AccountEntity {
+public class AccountEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,6 +16,7 @@ public class AccountEntity {
     @Column(length = 100, nullable = false)
     private String name;
 
+    @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 }

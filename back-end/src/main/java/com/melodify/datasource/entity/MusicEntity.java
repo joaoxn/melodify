@@ -1,9 +1,6 @@
 package com.melodify.datasource.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.File;
@@ -12,6 +9,10 @@ import java.io.File;
 @Entity
 @Table(name = "music")
 public class MusicEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(length = 100, nullable = false)
     private String name;
 

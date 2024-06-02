@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.File;
+import java.util.List;
 
 @Data
 @Entity
@@ -19,12 +20,18 @@ public class MusicEntity {
     @Column(length = 100, nullable = false)
     private String artist_name;
 
+    @OneToOne
     @JoinColumn(name = "artist_id")
     private AccountEntity artist;
 
-    @JoinColumn(name = "genre_id")
-    private GenreEntity genre;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            joinColumns = {
+                    @JoinColumn(name = "music_id")
+            }
+    )
+    private List<GenreEntity> genre;
 
-    @Column(columnDefinition = "bytea", nullable = false)
+    @Column(nullable = false)
     private File audio;
 }

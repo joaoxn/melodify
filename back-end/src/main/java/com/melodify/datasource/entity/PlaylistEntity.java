@@ -3,6 +3,8 @@ package com.melodify.datasource.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "playlist")
@@ -16,4 +18,13 @@ public class PlaylistEntity {
 
     @JoinColumn(name = "account_id", nullable = false)
     private AccountEntity account;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            joinColumns = {
+                    @JoinColumn(name = "playlist_id")
+            }
+    )
+    @OrderColumn(name = "music_order")
+    private List<MusicEntity> music;
 }

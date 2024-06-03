@@ -14,36 +14,36 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("user")
+@RequestMapping("account")
 public class AccountController {
-    private final AccountServiceImpl userService;
+    private final AccountServiceImpl accountService;
     private final ProfileServiceImpl profileService;
 
     public AccountController(
-            AccountServiceImpl userService,
+            AccountServiceImpl accountService,
             ProfileServiceImpl profileService
     ) {
-        this.userService = userService;
+        this.accountService = accountService;
         this.profileService = profileService;
 
     }
 
     @PostMapping
     public ResponseEntity<AccountProfileResponse> postAll(@RequestBody ProfileRequest request) {
-        AccountEntity user = userService.create(request);
-        ProfileEntity profile = profileService.create(new ProfileFilter(request.name(), user.getId()));
-        return ResponseEntity.status(HttpStatus.CREATED).body(new AccountProfileResponse(user, profile));
+        AccountEntity account = accountService.create(request);
+        ProfileEntity profile = profileService.create(new ProfileFilter(request.name(), account.getId()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new AccountProfileResponse(account, profile));
     }
 
     @PostMapping
     public ResponseEntity<AccountEntity> post(@RequestBody CustomProfileRequest request) {
-        return ResponseEntity.ok(userService.create(request));
+        return ResponseEntity.ok(accountService.create(request));
     }
 
     @PostMapping
     public ResponseEntity<AccountProfileResponse> postAll(@RequestBody CustomProfileRequest request) {
-        AccountEntity user = userService.create(request);
-        ProfileEntity profile = profileService.create(new ProfileFilter(request.name(), user.getId()));
-        return ResponseEntity.status(HttpStatus.CREATED).body(new AccountProfileResponse(user, profile));
+        AccountEntity account = accountService.create(request);
+        ProfileEntity profile = profileService.create(new ProfileFilter(request.name(), account.getId()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new AccountProfileResponse(account, profile));
     }
 }

@@ -20,8 +20,8 @@ public class ProfileServiceImpl extends GenericServiceImpl<ProfileEntity, Profil
             entity.setName(request.name());
         }
 
-//        if (request.userId() != null) {
-//            entity.setAccount(request.userId()); //TODO
+//        if (request.accountId() != null) {
+//            entity.setAccount(request.accountId()); //TODO
 //        }
 
         return entity;

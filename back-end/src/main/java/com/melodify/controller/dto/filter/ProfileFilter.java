@@ -1,4 +1,4 @@
 package com.melodify.controller.dto.filter;
 
-public record ProfileFilter(String name, Long userId) {
+public record ProfileFilter(String name, Long accountId) {
 }

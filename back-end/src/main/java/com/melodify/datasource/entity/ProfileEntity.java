@@ -17,6 +17,6 @@ public class ProfileEntity implements Serializable {
     private String name;
 
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private AccountEntity user;
+    @JoinColumn(name = "account_id", nullable = false)
+    private AccountEntity account;
 }

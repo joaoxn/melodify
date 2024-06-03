@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class TokenService {
+public class TokenServiceImpl {
     private RoleRepository roleRepository;
 
     public RoleEntity createRole(String name) {

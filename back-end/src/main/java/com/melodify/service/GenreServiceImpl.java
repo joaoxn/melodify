@@ -7,16 +7,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class GenreService extends GenericService<GenreEntity, GenreEntity, GenreRepository> {
+public class GenreServiceImpl extends GenericServiceImpl<GenreEntity, GenreEntity, GenreRepository> {
 
-    public GenreService(GenreRepository repository) {
+    public GenreServiceImpl(GenreRepository repository) {
         super(repository);
     }
 
     @Override
-    public GenreEntity equalProperties(GenreEntity entity, GenreEntity data) {
-        if (data.getName() != null) {
-            entity.setName(data.getName());
+    public GenreEntity equalProperties(GenreEntity entity, GenreEntity request) {
+        if (request.getName() != null) {
+            entity.setName(request.getName());
         }
 
         return entity;

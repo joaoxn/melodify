@@ -7,20 +7,20 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class AccountService extends GenericService<AccountEntity, AccountEntity, AccountRepository> {
+public class AccountServiceImpl extends GenericServiceImpl<AccountEntity, AccountEntity, AccountRepository> {
 
-    public AccountService(AccountRepository repository) {
+    public AccountServiceImpl(AccountRepository repository) {
         super(repository);
     }
 
     @Override
-    public AccountEntity equalProperties(AccountEntity entity, AccountEntity data) {
-        if (data.getName() != null) {
-            entity.setName(data.getName());
+    public AccountEntity equalProperties(AccountEntity entity, AccountEntity request) {
+        if (request.getName() != null) {
+            entity.setName(request.getName());
         }
 
-        if (data.getUser() != null) {
-            entity.setUser(data.getUser());
+        if (request.getUser() != null) {
+            entity.setUser(request.getUser());
         }
 
         return entity;

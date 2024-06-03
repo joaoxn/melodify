@@ -2,7 +2,6 @@ package com.melodify.service;
 
 import com.melodify.datasource.entity.AccountEntity;
 import com.melodify.datasource.repository.AccountRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

@@ -23,8 +23,8 @@ public class MusicServiceImpl extends GenericServiceImpl<MusicEntity, MusicEntit
             entity.setArtistName(request.getArtistName());
         }
 
-        if (request.getArtistAccount() != null) {
-            entity.setArtistAccount(request.getArtistAccount());
+        if (request.getArtistProfile() != null) {
+            entity.setArtistProfile(request.getArtistProfile());
         }
 
         if (request.getGenre() != null) {

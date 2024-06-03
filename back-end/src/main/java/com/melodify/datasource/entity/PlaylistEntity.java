@@ -16,8 +16,8 @@ public class PlaylistEntity {
     @Column(length = 100, nullable = false)
     private String name;
 
-    @JoinColumn(name = "account_id", nullable = false)
-    private AccountEntity account;
+    @JoinColumn(name = "profile_id", nullable = false)
+    private ProfileEntity profile;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

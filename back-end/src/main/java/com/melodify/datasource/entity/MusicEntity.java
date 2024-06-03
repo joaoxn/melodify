@@ -22,7 +22,7 @@ public class MusicEntity {
 
     @OneToOne
     @JoinColumn(name = "artist_id")
-    private AccountEntity artistAccount;
+    private ProfileEntity artistProfile;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

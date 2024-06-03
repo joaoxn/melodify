@@ -1,7 +1,7 @@
 package com.melodify.service;
 
-import com.melodify.controller.dto.request.AccountRequest;
-import com.melodify.controller.dto.request.CustomAccountRequest;
+import com.melodify.controller.dto.request.ProfileRequest;
+import com.melodify.controller.dto.request.CustomProfileRequest;
 import com.melodify.datasource.entity.UserEntity;
 import com.melodify.datasource.repository.RoleRepository;
 import com.melodify.datasource.repository.UserRepository;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class UserServiceImpl extends GenericServiceImpl<UserEntity, AccountRequest, UserRepository> implements GenericService<UserEntity, AccountRequest> {
+public class UserServiceImpl extends GenericServiceImpl<UserEntity, ProfileRequest, UserRepository> implements GenericService<UserEntity, ProfileRequest> {
     private UserRepository repository;
     private RoleRepository roleRepository;
 
@@ -20,7 +20,7 @@ public class UserServiceImpl extends GenericServiceImpl<UserEntity, AccountReque
         this.roleRepository = roleRepository;
     }
 
-    public UserEntity create(CustomAccountRequest request) {
+    public UserEntity create(CustomProfileRequest request) {
 //        TODO
 //        log.info("GenericService.create(DTO entity) -> Criando entidade baseado na Requisição dada");
 //        log.info("SERVICE equalProperties() -> ( Chamada: create(...) ) Transferindo dados da Requisição para uma Entidade própria");
@@ -30,7 +30,7 @@ public class UserServiceImpl extends GenericServiceImpl<UserEntity, AccountReque
     }
 
     @Override
-    public UserEntity equalProperties(UserEntity entity, AccountRequest request) {
+    public UserEntity equalProperties(UserEntity entity, ProfileRequest request) {
         if (request.login() != null) {
             entity.setLogin(request.login());
         }

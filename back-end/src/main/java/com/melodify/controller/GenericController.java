@@ -9,7 +9,7 @@ import java.util.List;
 public class GenericController<E, DTO, S extends GenericService<E, DTO>> {
     private final S service;
 
-    public GenericController(String controllerMapping, S service) {
+    public GenericController(S service) {
         this.service = service;
     }
 

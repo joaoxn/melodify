@@ -19,8 +19,8 @@ public class PlaylistServiceImpl extends GenericServiceImpl<PlaylistEntity, Play
             entity.setName(request.getName());
         }
 
-        if (request.getAccount() != null) {
-            entity.setAccount(request.getAccount());
+        if (request.getProfile() != null) {
+            entity.setProfile(request.getProfile());
         }
 
         if (request.getMusics() != null) {

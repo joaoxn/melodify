@@ -14,7 +14,27 @@ public class MusicService extends GenericService<MusicEntity, MusicEntity, Music
 
     @Override
     public MusicEntity equalProperties(MusicEntity entity, MusicEntity data) {
-        return null; //TODO
+        if (data.getName() != null) {
+            entity.setName(data.getName());
+        }
+
+        if (data.getArtistName() != null) {
+            entity.setArtistName(data.getArtistName());
+        }
+
+        if (data.getArtistAccount() != null) {
+            entity.setArtistAccount(data.getArtistAccount());
+        }
+
+        if (data.getGenre() != null) {
+            entity.setGenre(data.getGenre());
+        }
+
+        if (data.getAudio() != null) {
+            entity.setAudio(data.getAudio());
+        }
+        
+        return entity;
     }
 
     @Override

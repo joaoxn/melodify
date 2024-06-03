@@ -14,7 +14,19 @@ public class UserService extends GenericService<UserEntity, UserEntity, UserRepo
 
     @Override
     public UserEntity equalProperties(UserEntity entity, UserEntity data) {
-        return null; //TODO
+        if (data.getLogin() != null) {
+            entity.setLogin(data.getLogin());
+        }
+
+        if (data.getPassword() != null) {
+            entity.setPassword(data.getPassword());
+        }
+
+        if (data.getRole() != null) {
+            entity.setRole(data.getRole());
+        }
+
+        return entity;
     }
 
     @Override

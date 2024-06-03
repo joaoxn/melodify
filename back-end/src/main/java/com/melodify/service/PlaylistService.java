@@ -15,7 +15,19 @@ public class PlaylistService extends GenericService<PlaylistEntity, PlaylistEnti
 
     @Override
     public PlaylistEntity equalProperties(PlaylistEntity entity, PlaylistEntity data) {
-        return null; //TODO
+        if (data.getName() != null) {
+            entity.setName(data.getName());
+        }
+
+        if (data.getAccount() != null) {
+            entity.setAccount(data.getAccount());
+        }
+
+        if (data.getMusics() != null) {
+            entity.setMusics(data.getMusics());
+        }
+
+        return entity;
     }
 
     @Override

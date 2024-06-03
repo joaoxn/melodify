@@ -18,11 +18,11 @@ public class MusicEntity {
     private String name;
 
     @Column(length = 100, nullable = false)
-    private String artist_name;
+    private String artistName;
 
     @OneToOne
     @JoinColumn(name = "artist_id")
-    private AccountEntity artist;
+    private AccountEntity artistAccount;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

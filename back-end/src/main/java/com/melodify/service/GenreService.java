@@ -14,7 +14,11 @@ public class GenreService extends GenericService<GenreEntity, GenreEntity, Genre
 
     @Override
     public GenreEntity equalProperties(GenreEntity entity, GenreEntity data) {
-        return null; //TODO
+        if (data.getName() != null) {
+            entity.setName(data.getName());
+        }
+
+        return entity;
     }
 
     @Override

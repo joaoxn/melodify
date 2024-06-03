@@ -26,5 +26,5 @@ public class PlaylistEntity {
             }
     )
     @OrderColumn(name = "music_order")
-    private List<MusicEntity> music;
+    private List<MusicEntity> musics;
 }

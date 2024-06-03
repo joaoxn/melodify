@@ -5,7 +5,7 @@ import java.io.File;
 public record MusicRequest(
         String name,
         String artistName,
-        String artistUser,
+        String artistAccount,
         String[] genres,
         Boolean downloadOnlySelected,
         File audio

@@ -2,25 +2,25 @@ package com.melodify.service;
 
 import com.melodify.controller.dto.request.ProfileRequest;
 import com.melodify.controller.dto.request.CustomProfileRequest;
-import com.melodify.datasource.entity.UserEntity;
+import com.melodify.datasource.entity.AccountEntity;
 import com.melodify.datasource.repository.RoleRepository;
-import com.melodify.datasource.repository.UserRepository;
+import com.melodify.datasource.repository.AccountRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class UserServiceImpl extends GenericServiceImpl<UserEntity, ProfileRequest, UserRepository> implements GenericService<UserEntity, ProfileRequest> {
-    private UserRepository repository;
+public class AccountServiceImpl extends GenericServiceImpl<AccountEntity, ProfileRequest, AccountRepository> implements GenericService<AccountEntity, ProfileRequest> {
+    private AccountRepository repository;
     private RoleRepository roleRepository;
 
-    public UserServiceImpl(UserRepository repository, RoleRepository roleRepository) {
+    public AccountServiceImpl(AccountRepository repository, RoleRepository roleRepository) {
         super(repository);
         this.repository = repository;
         this.roleRepository = roleRepository;
     }
 
-    public UserEntity create(CustomProfileRequest request) {
+    public AccountEntity create(CustomProfileRequest request) {
 //        TODO
 //        log.info("GenericService.create(DTO entity) -> Criando entidade baseado na Requisição dada");
 //        log.info("SERVICE equalProperties() -> ( Chamada: create(...) ) Transferindo dados da Requisição para uma Entidade própria");
@@ -30,7 +30,7 @@ public class UserServiceImpl extends GenericServiceImpl<UserEntity, ProfileReque
     }
 
     @Override
-    public UserEntity equalProperties(UserEntity entity, ProfileRequest request) {
+    public AccountEntity equalProperties(AccountEntity entity, ProfileRequest request) {
         if (request.login() != null) {
             entity.setLogin(request.login());
         }
@@ -43,7 +43,7 @@ public class UserServiceImpl extends GenericServiceImpl<UserEntity, ProfileReque
     }
 
     @Override
-    public UserEntity newEntity() {
-        return new UserEntity();
+    public AccountEntity newEntity() {
+        return new AccountEntity();
     }
 }

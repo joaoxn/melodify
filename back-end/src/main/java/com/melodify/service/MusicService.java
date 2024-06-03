@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class MusicService extends GenericService<MusicEntity, MusicEntity, MusicRepository> {
+
     public MusicService(MusicRepository repository) {
         super(repository);
     }

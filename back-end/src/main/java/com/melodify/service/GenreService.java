@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class GenreService extends GenericService<GenreEntity, GenreEntity, GenreRepository> {
+
     public GenreService(GenreRepository repository) {
         super(repository);
     }

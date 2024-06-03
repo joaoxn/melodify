@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class UserService extends GenericService<UserEntity, UserEntity, UserRepository> {
+
     public UserService(UserRepository repository) {
         super(repository);
     }

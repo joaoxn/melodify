@@ -8,28 +8,28 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class GenericController<E, DTO, S extends GenericService<E, DTO>> {
+public class GenericController<E, REQ, RES, S extends GenericService<E, REQ, RES>> {
     private final S service;
 
     @GetMapping("{id}")
-    public ResponseEntity<E> get(@PathVariable Long id) {
+    public ResponseEntity<RES> get(@PathVariable Long id) {
         return ResponseEntity.ok(service.get(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<E>> get() {
+    public ResponseEntity<List<RES>> get() {
         return ResponseEntity.ok(service.getAll());
     }
 
     @PostMapping
-    public ResponseEntity<E> post(@RequestBody DTO request) {
+    public ResponseEntity<RES> post(@RequestBody REQ request) {
         return ResponseEntity.ok(service.create(request));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<E> put(
+    public ResponseEntity<RES> put(
             @PathVariable Long id,
-            @RequestBody DTO request
+            @RequestBody REQ request
     ) {
         return ResponseEntity.ok(service.alter(id, request));
     }

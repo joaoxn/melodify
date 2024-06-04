@@ -1,7 +1,7 @@
 package com.melodify.service;
 
-import com.melodify.controller.dto.request.UserRequest;
-import com.melodify.controller.dto.request.CustomUserRequest;
+import com.melodify.controller.dto.request.AccountRequest;
+import com.melodify.controller.dto.response.AccountResponse;
 import com.melodify.datasource.entity.AccountEntity;
 import com.melodify.datasource.repository.RoleRepository;
 import com.melodify.datasource.repository.AccountRepository;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class AccountServiceImpl extends GenericServiceImpl<AccountEntity, UserRequest, AccountRepository> implements GenericService<AccountEntity, UserRequest> {
-    private AccountRepository repository;
-    private RoleRepository roleRepository;
+public class AccountServiceImpl extends GenericServiceImpl<AccountEntity, AccountRequest, AccountResponse, AccountRepository> implements GenericService<AccountEntity, AccountRequest, AccountResponse> {
+    private final AccountRepository repository;
+    private final RoleRepository roleRepository;
 
     public AccountServiceImpl(AccountRepository repository, RoleRepository roleRepository) {
         super(repository);
@@ -20,32 +20,23 @@ public class AccountServiceImpl extends GenericServiceImpl<AccountEntity, UserRe
         this.roleRepository = roleRepository;
     }
 
-    public AccountEntity create(CustomUserRequest request) {
-//        TODO
-//        log.info("GenericService.create(DTO entity) -> Criando entidade baseado na Requisição dada");
-//        log.info("SERVICE equalProperties() -> ( Chamada: create(...) ) Transferindo dados da Requisição para uma Entidade própria");
-//        E entitySave = equalProperties(newEntity(), request);
-//        return repository.save(entitySave);
-        return null;
-    }
-
-    public AccountEntity addRole(Long id, String roleName) {
+    public AccountResponse addRole(Long id, String roleName) {
         //TODO
         return null;
     }
 
-    public AccountEntity alterRole(Long id, String roleName) {
+    public AccountResponse alterRole(Long id, String roleName) {
         //TODO
         return null;
     }
 
-    public AccountEntity deleteRole(Long id, String roleName) {
+    public AccountResponse deleteRole(Long id, String roleName) {
         //TODO
         return null;
     }
 
     @Override
-    public AccountEntity equalProperties(AccountEntity entity, UserRequest request) {
+    public AccountEntity equalProperties(AccountEntity entity, AccountRequest request) {
         if (request.login() != null) {
             entity.setLogin(request.login());
         }
@@ -55,6 +46,11 @@ public class AccountServiceImpl extends GenericServiceImpl<AccountEntity, UserRe
         }
 
         return entity;
+    }
+
+    @Override
+    public AccountResponse respond(AccountEntity entity) {
+        return null; //TODO
     }
 
     @Override

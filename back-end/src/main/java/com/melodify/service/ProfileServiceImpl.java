@@ -1,6 +1,8 @@
 package com.melodify.service;
 
 import com.melodify.controller.dto.filter.ProfileFilter;
+import com.melodify.controller.dto.request.ProfileRequest;
+import com.melodify.controller.dto.response.ProfileResponse;
 import com.melodify.datasource.entity.ProfileEntity;
 import com.melodify.datasource.repository.ProfileRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -8,16 +10,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class ProfileServiceImpl extends GenericServiceImpl<ProfileEntity, ProfileFilter, ProfileRepository> {
+public class ProfileServiceImpl extends GenericServiceImpl<ProfileEntity, ProfileRequest, ProfileResponse, ProfileRepository> implements GenericService<ProfileEntity, ProfileRequest, ProfileResponse> {
 
     public ProfileServiceImpl(ProfileRepository repository) {
         super(repository);
     }
 
     @Override
-    public ProfileEntity equalProperties(ProfileEntity entity, ProfileFilter request) {
-        if (request.name() != null) {
-            entity.setName(request.name());
+    public ProfileEntity equalProperties(ProfileEntity entity, ProfileRequest request) {
+        if (request.firstName() != null) {
+            entity.setName(request.firstName());
         }
 
 //        if (request.accountId() != null) {
@@ -25,6 +27,11 @@ public class ProfileServiceImpl extends GenericServiceImpl<ProfileEntity, Profil
 //        }
 
         return entity;
+    }
+
+    @Override
+    public ProfileResponse respond(ProfileEntity entity) {
+        return null; //TODO
     }
 
     @Override

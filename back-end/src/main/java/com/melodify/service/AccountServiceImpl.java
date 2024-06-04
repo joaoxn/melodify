@@ -1,7 +1,7 @@
 package com.melodify.service;
 
-import com.melodify.controller.dto.request.ProfileRequest;
-import com.melodify.controller.dto.request.CustomProfileRequest;
+import com.melodify.controller.dto.request.UserRequest;
+import com.melodify.controller.dto.request.CustomUserRequest;
 import com.melodify.datasource.entity.AccountEntity;
 import com.melodify.datasource.repository.RoleRepository;
 import com.melodify.datasource.repository.AccountRepository;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class AccountServiceImpl extends GenericServiceImpl<AccountEntity, ProfileRequest, AccountRepository> implements GenericService<AccountEntity, ProfileRequest> {
+public class AccountServiceImpl extends GenericServiceImpl<AccountEntity, UserRequest, AccountRepository> implements GenericService<AccountEntity, UserRequest> {
     private AccountRepository repository;
     private RoleRepository roleRepository;
 
@@ -20,7 +20,7 @@ public class AccountServiceImpl extends GenericServiceImpl<AccountEntity, Profil
         this.roleRepository = roleRepository;
     }
 
-    public AccountEntity create(CustomProfileRequest request) {
+    public AccountEntity create(CustomUserRequest request) {
 //        TODO
 //        log.info("GenericService.create(DTO entity) -> Criando entidade baseado na Requisição dada");
 //        log.info("SERVICE equalProperties() -> ( Chamada: create(...) ) Transferindo dados da Requisição para uma Entidade própria");
@@ -29,8 +29,23 @@ public class AccountServiceImpl extends GenericServiceImpl<AccountEntity, Profil
         return null;
     }
 
+    public AccountEntity addRole(Long id, String roleName) {
+        //TODO
+        return null;
+    }
+
+    public AccountEntity alterRole(Long id, String roleName) {
+        //TODO
+        return null;
+    }
+
+    public AccountEntity deleteRole(Long id, String roleName) {
+        //TODO
+        return null;
+    }
+
     @Override
-    public AccountEntity equalProperties(AccountEntity entity, ProfileRequest request) {
+    public AccountEntity equalProperties(AccountEntity entity, UserRequest request) {
         if (request.login() != null) {
             entity.setLogin(request.login());
         }

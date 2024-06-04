@@ -1,17 +1,15 @@
 package com.melodify.controller;
 
 import com.melodify.service.GenericService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 public class GenericController<E, DTO, S extends GenericService<E, DTO>> {
     private final S service;
-
-    public GenericController(S service) {
-        this.service = service;
-    }
 
     @GetMapping("{id}")
     public ResponseEntity<E> get(@PathVariable Long id) {

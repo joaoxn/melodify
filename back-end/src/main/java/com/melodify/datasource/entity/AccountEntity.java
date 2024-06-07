@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Entity
@@ -20,6 +21,9 @@ public class AccountEntity implements Serializable {
     private String password;
 
     @ManyToOne(targetEntity = RoleEntity.class)
-    @JoinColumn(name = "role_id", nullable = false)
-    private RoleEntity role;
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "account_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false, unique = true)
+    )
+    private List<RoleEntity> roles;
 }

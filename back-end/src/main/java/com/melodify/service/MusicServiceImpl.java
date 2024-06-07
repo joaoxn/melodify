@@ -1,9 +1,13 @@
 package com.melodify.service;
 
+import com.melodify.datasource.entity.AccountEntity;
 import com.melodify.datasource.entity.MusicEntity;
+import com.melodify.datasource.entity.RoleEntity;
 import com.melodify.datasource.repository.MusicRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -11,6 +15,21 @@ public class MusicServiceImpl extends GenericServiceImpl<MusicEntity, MusicEntit
 
     public MusicServiceImpl(MusicRepository repository) {
         super(repository);
+    }
+
+    public Boolean isMusicDownloadable(AccountEntity account, MusicEntity music) {
+        Boolean downloadOnlySelected = music.getDownloadOnlySelected();
+        List<RoleEntity> downloadPermission  = music.getDownloadPermission();
+        if (downloadOnlySelected) {
+            for (RoleEntity role : account.getRoles()) {
+                if (downloadPermission.contains(role)) {
+                    return true;
+                }
+            }
+        } else {
+            
+        }
+        return false;
     }
 
     @Override

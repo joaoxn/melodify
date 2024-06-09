@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("profile")
 @Slf4j
-//TODO: Create ProfileRequest and ProfileResponse
 public class ProfileController extends GenericController<ProfileEntity, ProfileRequest, ProfileResponse, ProfileServiceImpl> {
     public ProfileController(ProfileServiceImpl service) {
         super(service);

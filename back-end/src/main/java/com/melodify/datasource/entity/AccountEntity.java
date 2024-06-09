@@ -26,4 +26,12 @@ public class AccountEntity implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false, unique = true)
     )
     private List<RoleEntity> roles;
+
+    public boolean addRole(RoleEntity role) {
+        return this.roles.add(role);
+    }
+
+    public boolean removeRole(RoleEntity role) {
+        return this.roles.remove(role);
+    }
 }

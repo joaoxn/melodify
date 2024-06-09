@@ -6,7 +6,9 @@ import com.melodify.datasource.entity.AccountEntity;
 import com.melodify.datasource.entity.RoleEntity;
 import com.melodify.datasource.repository.RoleRepository;
 import com.melodify.datasource.repository.AccountRepository;
+import com.melodify.infra.exception.CustomException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -24,18 +26,25 @@ public class AccountServiceImpl extends GenericServiceImpl<AccountEntity, Accoun
     }
 
     public AccountResponse addRole(Long id, String roleName) {
-        //TODO
-        return null;
-    }
+        AccountEntity account = repository.findById(id)
+                .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "Not found Account with id " + id));
 
-    public AccountResponse alterRole(Long id, String roleName) {
-        //TODO
-        return null;
+        RoleEntity role = roleRepository.findByName(roleName)
+                .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "Not found Role with name " + roleName));
+        account.addRole(role);
+        repository.save(account);
+        return respond(account);
     }
 
     public AccountResponse deleteRole(Long id, String roleName) {
-        //TODO
-        return null;
+        AccountEntity account = repository.findById(id)
+                .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "Not found Account with id "+ id));
+
+        RoleEntity role = roleRepository.findByName(roleName)
+                .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "Not found Role with name " + roleName));
+
+        account.removeRole(role);
+        return respond(repository.save(account));
     }
 
     @Override

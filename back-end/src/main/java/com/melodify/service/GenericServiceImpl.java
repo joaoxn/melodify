@@ -7,7 +7,6 @@ import com.melodify.infra.exception.CustomException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -20,7 +19,7 @@ public abstract class GenericServiceImpl<E, REQ, RES, R extends JpaRepository<E,
         log.info("GenericService.get({}) -> Buscando entidade por id no repositório", id);
         return respond(repository.findById(id)
                 .orElseThrow(() -> new CustomException(
-                        HttpStatus.NOT_FOUND, "Entidade não encontrada com ID: " + id)));
+                        HttpStatus.NOT_FOUND, "Not found Entity with id "+ id)));
     }
 
     public List<RES> getAll() {
@@ -41,7 +40,7 @@ public abstract class GenericServiceImpl<E, REQ, RES, R extends JpaRepository<E,
                 .orElseThrow(
                         () -> new CustomException(
                                 HttpStatus.NOT_FOUND,
-                                "Entidade não encontrada com ID: " + id));
+                                "Not found entity with id " + id));
         log.info("SERVICE equalProperties() -> ( Chamada: alter(...) ) Transferindo dados da Requisição para uma Entidade própria");
         return respond(repository.save(equalProperties(entityFound, request)));
     }
@@ -50,9 +49,9 @@ public abstract class GenericServiceImpl<E, REQ, RES, R extends JpaRepository<E,
         log.info("GenericService.delete({}) -> Deletando entidade com id informado", id);
         E entity = repository.findById(id)
                 .orElseThrow(() -> new CustomException(
-                        HttpStatus.NOT_FOUND, "Entidade não encontrada com ID: " + id));
+                        HttpStatus.NOT_FOUND, "Not found entity with id " + id));
         repository.delete(entity);
-        return "Entidade com ID: "+ id +" deletado com sucesso!";
+        return "Entity with ID: "+ id +" successfully deleted!";
     }
 
     public abstract E equalProperties(E entity, REQ request);

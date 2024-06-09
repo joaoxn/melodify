@@ -1,4 +1,6 @@
 package com.melodify.controller.dto.response;
 
-public record AccountResponse(String login, String roleName) {
+import java.util.List;
+
+public record AccountResponse(String login, List<String> rolesNames) {
 }

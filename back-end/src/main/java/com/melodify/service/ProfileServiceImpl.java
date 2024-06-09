@@ -1,37 +1,54 @@
 package com.melodify.service;
 
-import com.melodify.controller.dto.filter.ProfileFilter;
 import com.melodify.controller.dto.request.ProfileRequest;
+import com.melodify.controller.dto.response.AccountResponse;
 import com.melodify.controller.dto.response.ProfileResponse;
 import com.melodify.datasource.entity.ProfileEntity;
+import com.melodify.datasource.entity.RoleEntity;
+import com.melodify.datasource.repository.AccountRepository;
 import com.melodify.datasource.repository.ProfileRepository;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
 public class ProfileServiceImpl extends GenericServiceImpl<ProfileEntity, ProfileRequest, ProfileResponse, ProfileRepository> implements GenericService<ProfileEntity, ProfileRequest, ProfileResponse> {
+    private final AccountRepository accountRepository;
 
-    public ProfileServiceImpl(ProfileRepository repository) {
+    public ProfileServiceImpl(ProfileRepository repository, AccountRepository accountRepository) {
         super(repository);
+        this.accountRepository = accountRepository;
     }
 
     @Override
     public ProfileEntity equalProperties(ProfileEntity entity, ProfileRequest request) {
-        if (request.firstName() != null) {
-            entity.setName(request.firstName());
-        }
+        Optional.ofNullable(request.name())
+                .ifPresent(entity::setName);
 
-//        if (request.accountId() != null) {
-//            entity.setAccount(request.accountId()); //TODO
-//        }
+        Optional.ofNullable(request.email())
+                .ifPresent(entity::setEmail);
 
+        accountRepository.findById(request.accountId())
+                .ifPresent(entity::setAccount);
         return entity;
     }
 
     @Override
+    @SneakyThrows
     public ProfileResponse respond(ProfileEntity entity) {
-        return null; //TODO
+        return new ProfileResponse(
+                entity.getName(),
+                entity.getEmail(),
+                new AccountResponse(
+                        entity.getAccount().getLogin(),
+                        entity.getAccount().getRoles()
+                                .stream().map(RoleEntity::getName).toList()
+                )
+        );
     }
 
     @Override

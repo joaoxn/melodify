@@ -9,7 +9,8 @@ import java.util.Optional;
 
 @Repository
 public interface ProfileRepository extends JpaRepository<ProfileEntity, Long> {
-    ProfileEntity findByUserId(Long id);
+    Optional<ProfileEntity> findByUserId(Long id);
     Optional<ProfileEntity> findByName(String name);
     Optional<List<ProfileEntity>> findAllByEmail(String email);
+    Optional<List<ProfileEntity>> findAllByAccountLoginIn(List<String> loginList);
 }

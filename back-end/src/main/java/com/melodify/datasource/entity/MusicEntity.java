@@ -18,7 +18,7 @@ public class MusicEntity {
     private String name;
 
     @Column(length = 100, nullable = false)
-    private String artistName;
+    private List<String> artistsNames;
 
     @ManyToMany
     @JoinTable(
@@ -26,13 +26,13 @@ public class MusicEntity {
             joinColumns = @JoinColumn(name = "music_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "artist_id", nullable = false)
     )
-    private List<ProfileEntity> artistsProfile;
+    private List<ProfileEntity> artistsProfiles;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             joinColumns = @JoinColumn(name = "music_id")
     )
-    private List<GenreEntity> genre;
+    private List<GenreEntity> genres;
 
     private Integer views;
 

@@ -1,4 +1,4 @@
 package com.melodify.controller.dto.request;
 
-public record ProfileRequest(Long accountId, String firstName, String lastName, String email) {
+public record ProfileRequest(String name, String email, Long accountId) {
 }

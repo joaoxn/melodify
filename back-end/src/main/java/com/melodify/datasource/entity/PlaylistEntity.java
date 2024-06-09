@@ -21,9 +21,7 @@ public class PlaylistEntity {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            joinColumns = {
-                    @JoinColumn(name = "playlist_id")
-            }
+            joinColumns = @JoinColumn(name = "playlist_id")
     )
     @OrderColumn(name = "music_order")
     private List<MusicEntity> musics;

@@ -5,9 +5,11 @@ import com.melodify.datasource.repository.PlaylistRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Slf4j
-public class PlaylistServiceImpl extends GenericServiceImpl<PlaylistEntity, PlaylistEntity, PlaylistRepository> {
+public class PlaylistServiceImpl extends GenericServiceImpl<PlaylistEntity, PlaylistEntity, PlaylistEntity, PlaylistRepository> {
 
     public PlaylistServiceImpl(PlaylistRepository repository) {
         super(repository);
@@ -15,19 +17,20 @@ public class PlaylistServiceImpl extends GenericServiceImpl<PlaylistEntity, Play
 
     @Override
     public PlaylistEntity equalProperties(PlaylistEntity entity, PlaylistEntity request) {
-        if (request.getName() != null) {
-            entity.setName(request.getName());
-        }
+        Optional.ofNullable(request.getName())
+                .ifPresent(entity::setName);
 
-        if (request.getProfile() != null) {
-            entity.setProfile(request.getProfile());
-        }
+        Optional.ofNullable(request.getProfile())
+                .ifPresent(entity::setProfile);
 
-        if (request.getMusics() != null) {
-            entity.setMusics(request.getMusics());
-        }
+        Optional.ofNullable(request.getMusics())
+                .ifPresent(entity::setMusics);
+        return entity; // TODO After PlaylistRequest
+    }
 
-        return entity;
+    @Override
+    public PlaylistEntity respond(PlaylistEntity entity) {
+        return entity; //TODO When PlaylistResponse
     }
 
     @Override

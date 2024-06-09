@@ -1,12 +1,14 @@
 package com.melodify.controller.dto.request;
 
 import java.io.File;
+import java.util.List;
 
 public record MusicRequest(
         String name,
-        String artistName,
-        String artistAccount,
-        String[] genres,
+        List<String> artistsNames,
+        List<String> artistsLogins,
+        List<String> genres,
+        List<String> downloadPermissionRoles,
         Boolean downloadOnlySelected,
         File audio
 ) {

@@ -1,4 +1,4 @@
 package com.melodify.controller.dto.response;
 
-public record ProfileResponse(String firstName, String lastName, String email, AccountResponse account) {
+public record ProfileResponse(String name, String email, AccountResponse account) {
 }

@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+//TODO Validation for min. and max. length for login and password
 public class AccountServiceImpl extends GenericServiceImpl<AccountEntity, AccountRequest, AccountResponse, AccountRepository> implements GenericService<AccountEntity, AccountRequest, AccountResponse> {
     private final AccountRepository repository;
     private final RoleRepository roleRepository;

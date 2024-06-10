@@ -3,7 +3,7 @@ package com.melodify.controller.dto.request;
 import java.io.File;
 import java.util.List;
 
-public record MusicRequest(
+public record SongRequest(
         String name,
         List<String> artistsNames,
         List<String> artistsLogins,

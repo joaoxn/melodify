@@ -23,8 +23,8 @@ public class PlaylistServiceImpl extends GenericServiceImpl<PlaylistEntity, Play
         Optional.ofNullable(request.getProfile())
                 .ifPresent(entity::setProfile);
 
-        Optional.ofNullable(request.getMusics())
-                .ifPresent(entity::setMusics);
+        Optional.ofNullable(request.getSongs())
+                .ifPresent(entity::setSongs);
         return entity; // TODO After PlaylistRequest
     }
 

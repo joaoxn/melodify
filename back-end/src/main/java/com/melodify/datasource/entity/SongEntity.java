@@ -8,8 +8,8 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "music")
-public class MusicEntity {
+@Table(name = "song")
+public class SongEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,15 +22,15 @@ public class MusicEntity {
 
     @ManyToMany
     @JoinTable(
-            name = "music_artists",
-            joinColumns = @JoinColumn(name = "music_id", nullable = false),
+            name = "song_artists",
+            joinColumns = @JoinColumn(name = "song_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "artist_id", nullable = false)
     )
     private List<ProfileEntity> artistsProfiles;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            joinColumns = @JoinColumn(name = "music_id")
+            joinColumns = @JoinColumn(name = "song_id")
     )
     private List<GenreEntity> genres;
 
@@ -39,8 +39,8 @@ public class MusicEntity {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "download_permission",
-            joinColumns = @JoinColumn(name = "music_id", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "music_id", nullable = false)
+            joinColumns = @JoinColumn(name = "song_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "song_id", nullable = false)
     )
     private List<RoleEntity> downloadPermission;
 
@@ -49,4 +49,9 @@ public class MusicEntity {
 
     @Column(nullable = false)
     private File audio;
+
+    public Integer addViews(Integer views) {
+        this.views += views;
+        return this.views;
+    }
 }

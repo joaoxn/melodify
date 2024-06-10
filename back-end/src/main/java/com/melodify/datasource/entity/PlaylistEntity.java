@@ -23,6 +23,6 @@ public class PlaylistEntity {
     @JoinTable(
             joinColumns = @JoinColumn(name = "playlist_id")
     )
-    @OrderColumn(name = "music_order")
-    private List<MusicEntity> musics;
+    @OrderColumn(name = "song_order")
+    private List<SongEntity> songs;
 }

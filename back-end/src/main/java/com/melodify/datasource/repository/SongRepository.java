@@ -18,4 +18,6 @@ public interface SongRepository extends JpaRepository<SongEntity, Long> {
 
     @Query(value = "SELECT m FROM PlaylistEntity p JOIN p.songs m WHERE p.id = :id")
     Optional<List<SongEntity>> findAllByPlaylistId(Long id);
+
+    Optional<List<SongEntity>> findAllByGenreId(Long genreId);
 }

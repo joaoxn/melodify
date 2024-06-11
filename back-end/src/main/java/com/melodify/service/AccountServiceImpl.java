@@ -7,6 +7,7 @@ import com.melodify.datasource.entity.RoleEntity;
 import com.melodify.datasource.repository.RoleRepository;
 import com.melodify.datasource.repository.AccountRepository;
 import com.melodify.infra.exception.CustomException;
+import com.melodify.util.ValidationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -50,11 +51,28 @@ public class AccountServiceImpl extends GenericServiceImpl<AccountEntity, Accoun
 
     @Override
     public AccountEntity equalProperties(AccountEntity entity, AccountRequest request) {
+        ValidationUtil.validadeOrThrow(
+                ValidationUtil.length(request.login(), 3, 30, true),
+                new CustomException(HttpStatus.BAD_REQUEST,
+                        "Out of bounds: Account login must have length between 3 and 30 (Login: " + request.login() + ")")
+        );
+
         Optional.ofNullable(request.login())
                 .ifPresent(entity::setLogin);
 
+        ValidationUtil.validadeOrThrow(
+                ValidationUtil.password(request.password(), true),
+                new CustomException(HttpStatus.BAD_REQUEST,
+                        "Out of bounds: Account login must have length between 3 and 30 (Login: " + request.login() + ")")
+        );
+
         Optional.ofNullable(request.password()) //TODO Encrypting when Spring Security is implemented
                 .ifPresent(entity::setPassword);
+        Object[] properties = new Object[] {request.password()};
+        int nullIndex = ValidationUtil.areNull(properties);
+        if (nullIndex != -1) {
+            throw new CustomException(HttpStatus.BAD_REQUEST, "Null property: Property cannot be null (Property: "+ properties[nullIndex] +")"); //TODO: shows property as null (should be the property name)
+        }
         return entity;
     }
 

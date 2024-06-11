@@ -25,6 +25,25 @@ public class ValidationUtil {
         return string.length() >= min && string.length() <= max;
     }
 
+    public static int areNull(Object[] objects) {
+        for (int i = 0; i < objects.length; i++) {
+            if (objects[i] == null) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static boolean password(String passwordDecrypted, boolean nullable) {
+        if(passwordDecrypted == null) {
+            return nullable;
+        }
+        return length(passwordDecrypted, 8, 50, false) &&
+                patternMatches(passwordDecrypted,
+                        "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])");
+
+    }
+
     public static boolean email(String email) {
         return patternMatches(email, "^(.+)@(\\S+)$");
     }

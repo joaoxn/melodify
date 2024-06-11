@@ -11,7 +11,7 @@ import java.util.List;
 
 @Data
 @RequiredArgsConstructor
-@Slf4j //TODO: translate logs from portuguese to english
+@Slf4j
 public abstract class GenericServiceImpl<E, REQ, RES, R extends JpaRepository<E, Long>> implements GenericService<E, REQ, RES> {
     private final R repository;
 

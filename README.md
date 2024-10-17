@@ -10,7 +10,7 @@ The front-end of Melodify is built using the **Angular Framework** with **TypeSc
 
 ## Back-End
 
-The back-end is powered by **Java** and the **Spring Framework**, with a **PostgreSQL** database for efficient data management and scalability.
+The back-end is a Restful API powered by **Java** and the **Spring Framework**, with a **PostgreSQL** database for efficient data management and scalability.
 
 ### Database UML Diagram
 

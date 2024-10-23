@@ -1,22 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
-:root {
-    --primary-color: #0B1320;
-    --secundary-color: #111727;
-    --font-color: #777B86;
-    --font-colorHover: #818590;
-    --input-color: #3D4353;
-    --input-colorHover: #4b5160;
-    --secundary-input: #9A9DA3;
-    --form-color: #D9D9D9;
-    --white: #FFF;
-    --border-color2: #2c3245;
-    --border-color: #00ECFF;
-    --border-color: #00ECFF;    
-    --link-color: #F7DBFF;
-    --gradient-button: linear-gradient(to right, #00ECFF, #0072ff);
-}
-
 .mat-mdc-form-field {
     --mdc-filled-text-field-container-color: var(--input-color);
     --mdc-filled-text-field-container-shape: 10px;

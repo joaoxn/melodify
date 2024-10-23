@@ -1,0 +1,14 @@
+main {
+    background-color: var(--primary-color);
+    color: #FFF;
+}
+
+.grid-container{
+    display: grid;
+    grid-template-columns: 1fr 0.5fr 1.5fr;
+    overflow: hidden;
+}
+
+.left-section {
+    background-color: var(--secundary-color);
+}

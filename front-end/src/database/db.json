@@ -1,8 +1,17 @@
 {
-    "user": {
-        "id": "0",
-        "name": "Admin",
-        "email": "admin@email.com",
-        "password": "password"
-    }
+    "user": [
+        {
+            "id": "0",
+            "name": "Admin",
+            "email": "admin@email.com",
+            "password": "password",
+            "roleId": "0"
+        }
+    ],
+    "role": [
+        {
+            "id": "0",
+            "name": "admin"
+        }
+    ]
 }

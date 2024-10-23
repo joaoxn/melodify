@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user';
 import { map, Observable } from 'rxjs';
+import { UserRequest } from '../interfaces/user-request';
 
 @Injectable({
   providedIn: 'root'
@@ -20,19 +21,15 @@ export class UserService {
   }
 
   getAllArtists() {
-    return this.http.get<User[]>(`${this.apiUrl}?papelId=${2}`);
+    return this.http.get<User[]>(`${this.apiUrl}?roleId=${2}`);
   }
 
-  getTeacherById(teacherId: string) {
-    return this.getUserById(teacherId);
-  }
-
-  addUser(user: User): Observable<User> {
+  addUser(user: UserRequest): Observable<User> {
     return this.http.post<User>(this.apiUrl, user);
   }
 
-  setUser(user: User): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/${user.id}`, user);
+  setUser(id: string, user: UserRequest): Observable<User> {
+    return this.http.put<User>(`${this.apiUrl}/${id}`, user);
   }
 
   deleteUser(id: string): Observable<void> {
@@ -43,13 +40,13 @@ export class UserService {
     return this.getUsers().pipe(map((users) => users.length));
   }
 
-  getUsersByRole(papelId: string): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}?papelId=${papelId}`);
+  getUsersByRole(roleId: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}?roleId=${roleId}`);
   }
 
   getUserCountByRole(roleId: string): Observable<number> {
     return this.http
-      .get<User[]>(`${this.apiUrl}?papelId=${roleId}`)
+      .get<User[]>(`${this.apiUrl}?roleId=${roleId}`)
       .pipe(map((users) => users.length));
   }
 

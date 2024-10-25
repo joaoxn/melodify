@@ -1,0 +1,61 @@
+<div class="page-wrapper container-fluid">
+    <div class="row">
+        <section class="col-md-3 left-section d-flex flex-column">
+            <div class="top-left d-flex justify-content-between align-items-center p-3">
+                <h1 class="text-white">Playlist</h1>
+                <img src="assets/Melodify logo.png" alt="logo" class="logo">
+            </div>
+            <div class="playlist-selector-left p-3">
+                <div class="playlist-selector-left-flex">
+                    <div class="playlist-selector text-emphasis">
+                        <i class="fa-sharp fa-solid fa-music"></i>
+                        <h2>Playing now</h2>
+                    </div>
+                    <div class="d-flex  mt-2">
+                        <i class="fa-solid fa-users"></i>
+                        <i class="fa-solid fa-plus"></i>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+                <div class="playlist-selector-music d-flex align-items-center">
+                    <i class="fa-regular fa-circle"></i>
+                    <h1>Last listening</h1>
+                </div>
+                <div class="playlist-selector-music d-flex align-items-center">
+                    <i class="fa-regular fa-circle"></i>
+                    <h1>Recommend</h1>
+                </div>
+            </div>
+            <div class="bottom-left p-3">
+                <div class="music-left d-flex justify-content-between align-items-center">
+                    <div class="bottom-left-left d-flex align-items-center">
+                        <p>01</p>
+                        <img src="assets/album-taylor.jpeg" alt="music image" class="music-img">
+                        <div>
+                            <h2 class="text-emphasis">1989</h2>
+                            <h3>Taylor Swift</h3>
+                        </div>
+                    </div>
+                    <i class="fa-regular fa-circle-play"></i>
+                </div>
+                <div class="music-left d-flex justify-content-between align-items-center">
+                    <div class="bottom-left-left d-flex align-items-center">
+                        <p>02</p>
+                        <img src="assets/album-taylor.jpeg" alt="music image" class="music-img">
+                        <div>
+                            <h2 class="not-selected">1989</h2>
+                            <h3>Taylor Swift</h3>
+                        </div>
+                    </div>
+                    <i class="fa-regular fa-circle-play"></i>
+                </div>
+            </div>
+        </section>
+        <main class="col-md-8 right-section">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+    <footer class="footer p-3 text-center">
+        footer
+    </footer>
+</div>

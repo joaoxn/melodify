@@ -202,12 +202,10 @@
 
 a {
     text-decoration: none;
-    color: var(--white);
-    font-weight: bold;
     text-decoration: underline;
 }
 
-.link a:hover {
+.link:hover {
     color: var(--link-color);
     transition: color 0.3s;
     animation: soft 2s infinite linear;
@@ -216,7 +214,7 @@ a {
 .link {
     text-align: center;
     margin-top: 25px;
-    font-size: 1em;
+    width: 100%;
 }
 
 label {
@@ -343,12 +341,7 @@ label {
     }
 
     .link {
-        font-size: 1em;
         margin-top: 20px;
-    }
-
-    .link a {
-        font-size: 0.9em;
     }
 }
 

@@ -2,9 +2,10 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule, FormBuilder, ValidatorFn } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,7 @@ export class RegisterComponent implements OnInit {
   form!: FormGroup;
   hidePassword = true;
 
-  constructor(private fb: FormBuilder, private router: Router) { }
+  constructor(private userService: UserService, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -45,10 +46,13 @@ export class RegisterComponent implements OnInit {
     const newUser = {
       name: this.form.get('name')!.value,
       email: this.form.get('email')!.value,
-      password: this.form.get('password')!.value
+      password: this.form.get('password')!.value,
+      roleId: "0"
     }
 
-    // TODO: Implement registration logic here with services
+    console.log("Adding new user:", newUser.name, "with email:", newUser.email);
+
+    this.userService.add(newUser);
 
     this.router.navigate(['/home']);
   }

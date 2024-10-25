@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -72,4 +72,17 @@ export class FormValidationService {
       return;
     }
   }
+
+  passwordValidation(): ValidatorFn {
+    return (control: FormControl) => {
+      const password: string = control.value;
+      if (password.length < 8)
+        return { passwordLength: true };
+
+      if (/[]/)
+
+      return;
+    }
+  }
+
 }

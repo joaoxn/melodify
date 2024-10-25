@@ -12,11 +12,11 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  getUsers(): Observable<User[]> {
+  getAll(): Observable<User[]> {
     return this.http.get<User[]>(this.apiUrl);
   }
 
-  getUserById(id: string): Observable<User> {
+  get(id: string): Observable<User> {
     return this.http.get<User>(`${this.apiUrl}?id=${id}`);
   }
 
@@ -24,33 +24,33 @@ export class UserService {
     return this.http.get<User[]>(`${this.apiUrl}?roleId=${2}`);
   }
 
-  addUser(user: UserRequest): Observable<User> {
+  add(user: UserRequest): Observable<User> {
     return this.http.post<User>(this.apiUrl, user);
   }
 
-  setUser(id: string, user: UserRequest): Observable<User> {
+  set(id: string, user: UserRequest): Observable<User> {
     return this.http.put<User>(`${this.apiUrl}/${id}`, user);
   }
 
-  deleteUser(id: string): Observable<void> {
+  delete(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  getUserCount(): Observable<number> {
-    return this.getUsers().pipe(map((users) => users.length));
+  getCount(): Observable<number> {
+    return this.getAll().pipe(map((users) => users.length));
   }
 
-  getUsersByRole(roleId: string): Observable<User[]> {
+  getByRole(roleId: string): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}?roleId=${roleId}`);
   }
 
-  getUserCountByRole(roleId: string): Observable<number> {
+  getCountByRole(roleId: string): Observable<number> {
     return this.http
       .get<User[]>(`${this.apiUrl}?roleId=${roleId}`)
       .pipe(map((users) => users.length));
   }
 
-  searchUsersByName(name: string): Observable<User[]> {
+  searchByName(name: string): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}?name_like=${name}`);
   }
 }

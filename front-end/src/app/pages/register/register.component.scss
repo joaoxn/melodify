@@ -47,7 +47,6 @@
 .custom-form {
     display: flex;
     flex-direction: column;
-    color: #FFF;
     font-weight: 500;
 
 }
@@ -146,7 +145,6 @@
     position: relative;
     overflow: hidden;
     background: var(--gradient-button);
-    color: #fff;
 }
 
 .btn-custom:hover {
@@ -170,7 +168,7 @@
     left: 0;
     z-index: -1;
     transition: all .4s;
-    background-color: #fff;
+    background-color: var(--white);
 }
 
 .btn-custom:hover::after {
@@ -183,11 +181,6 @@
     animation-fill-mode: backwards;
 }
 
-a {
-    text-decoration: none;
-    text-decoration: underline;
-}
-
 .link:hover {
     color: var(--link-color);
     transition: color 0.3s;
@@ -195,6 +188,7 @@ a {
 }
 
 .link {
+    display: block;
     text-align: center;
     margin-top: 25px;
     width: 100%;

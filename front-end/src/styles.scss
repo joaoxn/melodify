@@ -7,11 +7,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    color: white;
 }
 
 :root {
     --primary-color: #0B1320;
     --secundary-color: #111727;
+    --tertiary-color: #16142B;
     --font-color: #777B86;
     --font-colorHover: #818590;
     --input-color: #3D4353;
@@ -20,7 +22,6 @@
     --form-color: #D9D9D9;
     --white: #FFF;
     --border-color2: #2c3245;
-    --border-color: #00ECFF;
     --border-color: #00ECFF;    
     --link-color: #F7DBFF;
     --gradient-button: linear-gradient(to right, #00ECFF, #0072ff);
@@ -29,8 +30,13 @@
 body {
     font-family: "Inter", "Helvetica Neue", "Helvetica";
     height: 100%;
+    overflow-x: hidden;
 }
 
+.text-emphasis {
+    color: #00ECFF;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+    i {
+        color: #00ECFF;
+    }
+}

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -12,39 +12,51 @@ export class FormValidationService {
     const errors = formGroup.get(inputName)?.errors;
 
     if (!errors) return;
-    if (errors['required']) return 'Campo obrigatório!';
+    
+    if (errors['required']) return 'Required field!';
     if (errors['minlength']) {
       let err = errors['minlength']
-      return 'Este campo deve conter pelo menos ' + err['requiredLength'] + ' caracteres!';
+      return 'This field requires at least ' + err['requiredLength'] + ' characters!';
     }
     if (errors['maxlength']) {
       let err = errors['maxlength']
-      return 'Este campo não pode ultrapassar ' + err['requiredLength'] + ' caracteres!';
+      return 'This field cannot surpass ' + err['requiredLength'] + ' characters!';
     }
     if (errors['length']) {
       let err = errors['length']
-      return 'Este campo deve conter '+ err +' caracteres!';
+      return 'This field must have '+ err +' characters!';
     }
     if (errors['numberLength']) {
       let err = errors['numberLength']
-      return 'Este campo deve conter '+ err +' dígitos!';
+      return 'This field must have '+ err +' digits!';
     }
     if (errors['max']) {
       let err = errors['max']
-      return 'Este campo não pode conter o valor superior  a ' + err['max'] + '!';
+      return 'This field cannot contain a value greater than ' + err['max'] + '!';
     }
     if (errors['min']) {
       let err = errors['min']
-      return 'Este campo não pode conter o valor  inferior a ' + err['min'] + '!';
+      return 'This field cannot contain a value smaller than ' + err['min'] + '!';
     }
     if (errors['mail']) {
-      return 'Utilize um e-mail válido!';
+      return 'Use a valid email!';
     }
+    if (errors['lowercase']) {
+      return 'Use at least a lowercase letter!';
+    }
+    if (errors['uppercase']) {
+      return 'Use at least an uppercase letter!';
+    }
+    if (errors['number']) {
+      return 'Use at least a number!';
+    }
+    if (errors['passwordMismatch'])
+      return "The passwords don't match!";
     if (errors['pattern']) {
-      return "Utilize um valor valido solicitado pelo campo"
+      return "Use a valid value prompted by the field!";
     }
 
-    return 'Campo Inválido';
+    return 'Invalid Field';
   };
 
 
@@ -54,34 +66,42 @@ export class FormValidationService {
     return (inputControl.dirty || inputControl.touched) && inputControl.invalid;
   }
 
-  public requireLength(length: number) {
-    return (control: FormControl) => {
-      if (!control.value) return;
+  public requireLength(length: number): ValidatorFn {
+    return (control: AbstractControl) => {
+      if (!control.value) return null;
       if (control.value.length != length)
         return { length: length };
-      return;
+      return null;
     }
   }
 
-  public requireNumberLength(length: number) {
-    return (control: FormControl) => {
+  public requireNumberLength(length: number): ValidatorFn {
+    return (control: AbstractControl) => {
       const value: string = control.value;
-      if (!value) return;
+      if (!value) return null;
       if (value.replaceAll(/\D/g, '').length != length)
         return { numberLength: length };
-      return;
+      return null;
     }
   }
 
-  passwordValidation(): ValidatorFn {
-    return (control: FormControl) => {
+  passwordValidator(): ValidatorFn {
+    return (control: AbstractControl) => {
       const password: string = control.value;
+
       if (password.length < 8)
-        return { passwordLength: true };
+        return { length: 8 };
 
-      if (/[]/)
+      if (!/^(?=.*[a-z]).+$/.test(password))
+        return { lowercase: true };
 
-      return;
+      if (!/^(?=.*[A-Z]).+$/.test(password))
+        return { uppercase: true };
+
+      if (!/^(?=.*[0-9]).+$/.test(password))
+        return { number: true };
+
+      return null;
     }
   }
 

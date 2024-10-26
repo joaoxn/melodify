@@ -13,7 +13,7 @@
 :root {
     --primary-color: #0B1320;
     --secundary-color: #111727;
-    --tertiary-color: #16142B;
+    --tertiary-color: #191e34;
     --font-color: #777B86;
     --font-colorHover: #818590;
     --input-color: #3D4353;
@@ -33,6 +33,10 @@ body {
     overflow-x: hidden;
 }
 
+.white {
+    color: white;
+}
+
 .text-emphasis {
     color: #00ECFF;
 
@@ -41,3 +45,16 @@ body {
     }
 }
 
+.mat-mdc-form-field-error {
+    color: hsl(0, 75%, 65%) !important;
+}
+
+.sneaky {
+    background: none;
+    border: none;
+}
+
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--tertiary-color) #080f1c;
+}

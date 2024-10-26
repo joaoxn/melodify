@@ -1,4 +1,4 @@
-<div class="page-wrapper container-fluid">
+<div id="page-wrapper" class="container-fluid">
     <div class="row">
         <section class="col-md-3 left-section d-flex flex-column">
             <div class="top-left d-flex justify-content-between align-items-center p-3">
@@ -19,36 +19,27 @@
                 </div>
                 <div class="playlist-selector-music d-flex align-items-center">
                     <i class="fa-regular fa-circle"></i>
-                    <h1>Last listening</h1>
+                    <h3>Last listening</h3>
                 </div>
                 <div class="playlist-selector-music d-flex align-items-center">
                     <i class="fa-regular fa-circle"></i>
-                    <h1>Recommend</h1>
+                    <h3>Recommend</h3>
                 </div>
             </div>
-            <div class="bottom-left p-3">
-                <div class="music-left d-flex justify-content-between align-items-center">
-                    <div class="bottom-left-left d-flex align-items-center">
-                        <p>01</p>
-                        <img src="assets/album-taylor.jpeg" alt="music image" class="music-img">
-                        <div>
-                            <h2 class="text-emphasis">1989</h2>
-                            <h3>Taylor Swift</h3>
+            <div class="playlist p-3">
+                @for (music of playlist; let i = $index; track $index) {
+                    <button class="sneaky music d-flex w-100 justify-content-between align-items-center">
+                        <div class="music-info d-flex align-items-center">
+                            <p>{{ i+1 | digits: playlist.length }}</p>
+                            <img [src]="music.thumbnail" alt="music cover" class="music-img">
+                            <div>
+                                <h3 class="text-emphasis">{{ music.name }}</h3>
+                                <h4>{{ music.artist }}</h4>
+                            </div>
                         </div>
-                    </div>
-                    <i class="fa-regular fa-circle-play"></i>
-                </div>
-                <div class="music-left d-flex justify-content-between align-items-center">
-                    <div class="bottom-left-left d-flex align-items-center">
-                        <p>02</p>
-                        <img src="assets/album-taylor.jpeg" alt="music image" class="music-img">
-                        <div>
-                            <h2 class="not-selected">1989</h2>
-                            <h3>Taylor Swift</h3>
-                        </div>
-                    </div>
-                    <i class="fa-regular fa-circle-play"></i>
-                </div>
+                        <i class="fa-regular fa-circle-play"></i>
+                    </button>
+                }
             </div>
         </section>
         <main class="col-md-8 right-section">

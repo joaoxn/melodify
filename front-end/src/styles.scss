@@ -7,13 +7,54 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    color: white;
+}
+
+:root {
+    --primary-color: #0B1320;
+    --secundary-color: #111727;
+    --tertiary-color: #191e34;
+    --font-color: #777B86;
+    --font-colorHover: #818590;
+    --input-color: #3D4353;
+    --input-colorHover: #4b5160;
+    --secundary-input: #9A9DA3;
+    --form-color: #D9D9D9;
+    --white: #FFF;
+    --border-color2: #2c3245;
+    --border-color: #00ECFF;    
+    --link-color: #F7DBFF;
+    --gradient-button: linear-gradient(to right, #00ECFF, #0072ff);
 }
 
 body {
     font-family: "Inter", "Helvetica Neue", "Helvetica";
     height: 100%;
+    overflow-x: hidden;
+}
+
+.white {
+    color: white;
+}
+
+.text-emphasis {
+    color: #00ECFF;
+
+    i {
+        color: #00ECFF;
+    }
 }
 
 .mat-mdc-form-field-error {
     color: hsl(0, 75%, 65%) !important;
+}
+
+.sneaky {
+    background: none;
+    border: none;
+}
+
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--tertiary-color) #080f1c;
 }

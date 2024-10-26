@@ -1,0 +1,33 @@
+{
+  "user": [
+    {
+      "id": "0",
+      "name": "Admin",
+      "email": "admin@email.com",
+      "password": "password",
+      "roleId": "0"
+    }
+  ],
+  "role": [
+    {
+      "id": "0",
+      "name": "user"
+    },
+    {
+      "id": "1",
+      "name": "premium"
+    },
+    {
+      "id": "2",
+      "name": "artist"
+    },
+    {
+      "id": "3",
+      "name": "moderator"
+    },
+    {
+      "id": "4",
+      "name": "admin"
+    }
+  ]
+}

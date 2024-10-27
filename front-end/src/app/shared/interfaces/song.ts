@@ -1,7 +1,9 @@
 export interface Song {
+    id: string;
     name: string;
-    artistName: string;
-    artistId?: string;
-    genreId?: string;
+    performerId?: string;
+    genreIds?: string[];
     views: number;
+    src: string;
+    fileType: string;
 }

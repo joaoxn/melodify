@@ -5,7 +5,7 @@
             <i class="fa-regular fa-circle-left" aria-hidden="true"></i>
         </button>
         <button class="sneaky" (click)="playSwitch()">
-            <i class="big fa-solid fa-play" aria-hidden="true"></i>
+            <i [ngClass]="['big', 'fa-solid', playing ? 'fa-pause' : 'fa-play']" aria-hidden="true"></i>
         </button>
         <button class="sneaky" (click)="next()">
             <i class="fa-regular fa-circle-right" aria-hidden="true"></i>
@@ -14,16 +14,14 @@
     <div id="seekbar-dashboard">
         <span>{{ formatTime(seekbarInput.value) }}</span>
         <mat-slider id="seekbar" min="0" [max]="songDuration" step="1" discrete [displayWith]="formatTime" #seekbar>
-            <input matSliderThumb #seekbarInput>
+            <input matSliderThumb #seekbarInput [value]="currentTime" (input)="goTo(seekbarInput.value)">
         </mat-slider>
         <span>{{ formatTime(songDuration) }}</span>
     </div>
-    <button class="sneaky" (click)="volumeSwitch()">
-        <i class="fa fa-volume-up" aria-hidden="true"></i>
-    </button>
-    <div id="volume-dashboard" [class.hidden]="!volumeVisible">
-        <mat-slider id="volume-slider" min="0" max="100" step="1" #volume>
-            <input matSliderThumb #volumeInput value="100">
+    <i class="fa fa-volume-up" aria-hidden="true"></i>
+    <div id="volume-dashboard">
+        <mat-slider id="volume-slider" min="0" max="100" step="1" #volumeSlider>
+            <input matSliderThumb #volumeInput value="100" (input)="volume(volumeInput.value)">
         </mat-slider>
         <span>{{ volumeInput.value }}%</span>
     </div>

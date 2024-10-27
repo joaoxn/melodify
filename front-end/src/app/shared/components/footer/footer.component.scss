@@ -1,8 +1,9 @@
 #main-wrapper,
 #main-wrapper>* {
-    height: 100%;
+    height: auto;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
 
@@ -25,17 +26,11 @@
     }
 
     #volume-dashboard {
-        width: 12rem;
-        padding-right: 1rem;
-        transition: width 0.5s ease-in-out;
-        overflow-x: hidden;
+        width: 10.5rem;
         
         display: flex;
+        flex-wrap: nowrap;
         flex-direction: row-reverse;
-        
-        &.hidden {
-            width: 0;
-        }
     }
 }
 

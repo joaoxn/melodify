@@ -8,6 +8,36 @@
       "roleId": "0"
     }
   ],
+  "performer": [
+    {
+      "id": "0",
+      "name": "Vacations",
+      "artists": [
+        {
+          "name": "Campbell Burns",
+          "performerRole": "singer",
+          "instruments": [
+            ""
+          ],
+          "biography": "",
+          "birthDate": "",
+          "socialLinks": [
+            {
+              "type": ""
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "socialLinkType": [
+    {
+      "id": "0",
+      "type": "facebook",
+      "link": "https://www.facebook.com/",
+      "icon": ""
+    }
+  ],
   "role": [
     {
       "id": "0",
@@ -28,6 +58,13 @@
     {
       "id": "4",
       "name": "admin"
+    }
+  ],
+  "song": [
+    {
+      "id": "0",
+      "name": "Young",
+      "artistId": ""
     }
   ]
 }

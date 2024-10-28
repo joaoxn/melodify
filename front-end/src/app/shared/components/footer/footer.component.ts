@@ -46,7 +46,7 @@ export class FooterComponent implements OnInit {
     this.audio.addEventListener('pause', () => this.playing = false);
     this.audio.addEventListener('ended', () => this.playing = false);
 
-    this.songService.currentSong$.subscribe((song) => {
+    this.songService.getCurrentSong().subscribe((song) => {
       if (!song || !this.audio) return;
       this.currentSong = song;
       

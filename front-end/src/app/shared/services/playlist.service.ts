@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RawPlaylist, Playlist } from '../interfaces/playlist';
-import { forkJoin, map, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, forkJoin, map, Observable, switchMap } from 'rxjs';
 import { Request } from '../interfaces/generics';
 import { Role } from '../interfaces/role';
 import { UserService } from './user.service';
@@ -13,11 +13,21 @@ import { SongService } from './song.service';
 export class PlaylistService {
   private readonly apiUrl = 'http://localhost:3000/playlist';
 
+  private currentPlaylistSubject = new BehaviorSubject<Playlist | null>(null);
+
   constructor(
     private http: HttpClient,
     private userService: UserService,
     private songService: SongService
   ) { }
+
+  getCurrentPlaylist(): Observable<Playlist | null> {
+    return this.currentPlaylistSubject.asObservable();
+  }
+
+  setCurrentPlaylist(song: Playlist | null): void {
+    this.currentPlaylistSubject.next(song);
+  }
 
   getAll(): Observable<RawPlaylist[]> {
     return this.http.get<RawPlaylist[]>(this.apiUrl);

@@ -15,9 +15,12 @@ export class SongService {
   private readonly genreUrl = 'http://localhost:3000/genre';
   
   private currentSongSubject = new BehaviorSubject<Song | RawSong | null>(null);
-  public currentSong$ = this.currentSongSubject.asObservable();
   
-  constructor(private http: HttpClient, private performerService: PerformerService) {}
+  constructor(private http: HttpClient, private performerService: PerformerService) { }
+
+  getCurrentSong(): Observable<Song | RawSong | null> {
+    return this.currentSongSubject.asObservable();
+  }
 
   setCurrentSong(song: Song | RawSong | null): void {
     this.currentSongSubject.next(song);
@@ -41,7 +44,7 @@ export class SongService {
         };
       }),
       switchMap((obj) => {
-        return forkJoin(obj.genreIds?.map((genreId) => this.getGenre(genreId)))
+        return forkJoin(obj.genreIds?.map(genreId => this.getGenre(genreId)))
         .pipe(map((genres) => ({ ...obj, genres })))
     })
     )

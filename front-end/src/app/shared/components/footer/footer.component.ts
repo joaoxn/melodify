@@ -31,14 +31,14 @@ export class FooterComponent implements OnInit {
 
   loop: LoopState = LoopState.ALL;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, 
-  private songService: SongService, private playlistService: PlaylistService) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object,
+    private songService: SongService, private playlistService: PlaylistService) {
     // Check if running in the browser
     if (isPlatformBrowser(this.platformId)) {
       this.audio = new Audio();
 
-      
-    window.addEventListener('keyup', this.globalKeyupListener.bind(this));
+
+      window.addEventListener('keyup', this.globalKeyupListener.bind(this));
 
       this.audio.onloadedmetadata = () => {
         this.songDuration = this.audio!.duration;
@@ -56,25 +56,24 @@ export class FooterComponent implements OnInit {
 
     this.audio.addEventListener('play', () => this.playing = true);
     this.audio.addEventListener('pause', () => this.playing = false);
-    this.audio.addEventListener('ended', () => {
-      if (this.loop != LoopState.ONE) {
-      this.next();
-      return;
-      }
-      this.goTo(0);
-      this.audio?.play();
-    });
+    this.audio.addEventListener('ended', this.handleEndOfSong);
 
     this.playlistService.getCurrentPlaylist().subscribe(playlist => this.currentPlaylist = playlist);
 
     this.songService.getCurrentSong().subscribe((song) => {
       if (!song || !this.audio) return;
       this.currentSong = song;
-      
+
       this.audio.src = song.src;
       this.audio.load();
       this.audio.play();
+      this.updateMediaSession();
     })
+
+    navigator.mediaSession.setActionHandler('play', () => this.audio?.play());
+    navigator.mediaSession.setActionHandler('pause', () => this.audio?.pause());
+    navigator.mediaSession.setActionHandler('previoustrack', () => this.previous());
+    navigator.mediaSession.setActionHandler('nexttrack', () => this.next());
   }
 
   globalKeyupListener(event: KeyboardEvent) {
@@ -83,11 +82,42 @@ export class FooterComponent implements OnInit {
     }
   }
 
+  handleEndOfSong() {
+    switch (this.loop) {
+      case LoopState.OFF:
+        if (this.currentSong?.id != this.currentPlaylist?.songs.at(-1)?.id)
+          this.next();
+        break;
+      case LoopState.ONE:
+        this.goTo(0);
+        this.audio?.play();
+        break;
+      case LoopState.ALL:
+        this.audio?.play();
+        break;
+      default:
+        this.next();
+    }
+  }
+
+  updateMediaSession() {
+    if (!('mediaSession' in navigator) || !this.currentSong) return;
+
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: this.currentSong.name,
+      artist: this.currentSong.performer?.name || 'Unknown Artist',
+      album: this.currentPlaylist?.name || 'Unknown Album',
+      artwork: [
+        { src: this.currentSong.thumbnailSrc || '/assets/no-album-cover.jpg', sizes: '512x512', type: 'image/png' }
+      ]
+    });
+  }
+
   formatTime(value: any): string {
     value = Number.parseInt(value);
-    if (value%60 < 10)
-      return `${Math.floor(value/60)}:0${value%60}`;
-    return `${Math.floor(value/60)}:${value%60}`;
+    if (value % 60 < 10)
+      return `${Math.floor(value / 60)}:0${value % 60}`;
+    return `${Math.floor(value / 60)}:${value % 60}`;
   }
 
   previous() {
@@ -102,15 +132,14 @@ export class FooterComponent implements OnInit {
     this.songService.setCurrentSong(songs[index]);
     this.playlistService.currentSongIndex = index;
   }
-  
+
   next() {
     let index = this.playlistService.currentSongIndex;
     const songs = this.currentPlaylist?.songs;
     if (index === undefined || !songs) return;
 
     index++;
-
-    if (this.loop != LoopState.OFF) index %= songs.length;
+    index %= songs.length;
 
     this.songService.setCurrentSong(songs[index]);
     this.playlistService.currentSongIndex = index;
@@ -123,10 +152,10 @@ export class FooterComponent implements OnInit {
   nextLoopState() {
     this.loop = (this.loop + 1) % 3;
   }
-  
+
   goTo(timestamp: any) {
     if (!this.audio) return;
-    
+
     timestamp = Number.parseInt(timestamp);
 
     this.audio.currentTime = timestamp;
@@ -135,7 +164,7 @@ export class FooterComponent implements OnInit {
   volume(value: any) {
     if (!this.audio) return;
 
-    value = Math.pow(Number.parseInt(value)/100, 2);
+    value = Math.pow(Number.parseInt(value) / 100, 2);
     this.audio.volume = value;
   }
 }

@@ -11,12 +11,21 @@
         margin: 0 0.4rem;
     }
 
-    
+
     div#controls {
         width: 15rem;
         margin-left: 5rem;
-        .custom-repeat-1 {
-            background-image: url("assets/repeat-1.png"); // TODO
+    }
+
+    .custom-repeat-1 {
+        background-image: url(/assets/repeat-1.png);
+        background-size: cover;
+        width: 1.4rem;
+        height: 1.4rem;
+        margin-top: 0.18rem;
+
+        &.text-emphasis {
+            background-image: url(/assets/repeat-1-emphasis.png);
         }
     }
 

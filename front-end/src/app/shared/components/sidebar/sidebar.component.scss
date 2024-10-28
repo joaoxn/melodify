@@ -2,13 +2,16 @@ section {
     width: 100%;
     height: 100%;
 
-    background-color: var(--secundary-color);
     overflow-y: auto;
+    
+    &, .sticky-top {
+        background-color: var(--secondary-color);
+        hr {
+            margin: 0;
+        }
+    }
 
     .top-left {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         margin-top: 0.5rem;
 
         img {
@@ -73,6 +76,7 @@ section {
 
         .music-info {
             gap: 20px;
+            width: 100%;
 
             p {
                 margin-top: 1rem;

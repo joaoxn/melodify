@@ -34,8 +34,20 @@ header {
         padding: 0.2rem;
         border-radius: 40px;
         font-size: 0.9em;
-        color: #000;
         width: 35em;
+        border: 3.5px solid var(--white);
+        background-color: var(--input-color);
+
+        &:hover {
+            border: 3.5px solid var(--border-color);
+            transition: border-color 0.3s ease;
+        }
+
+        &:focus {
+            outline: none;
+            border: 3.5px solid var(--border-color);
+            color: var(--font);
+        }
     }
 
     ::placeholder {
@@ -43,8 +55,12 @@ header {
     }
 
     i {
-        font-size: 2.5rem;
-        color: var(--border-color);
         cursor: pointer;
+        font-size: 2em;
+
+        &:hover {
+            color: var(--border-color);
+            transition: color 1.5s ease;
+        }
     }
 }

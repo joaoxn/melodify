@@ -8,7 +8,7 @@ import { Request } from '../interfaces/generics';
   providedIn: 'root'
 })
 export class PerformerService {
-  private readonly apiUrl = 'http://localhost:3000/Performer';
+  private readonly apiUrl = 'http://localhost:3000/performer';
 
   constructor(private http: HttpClient) { }
 

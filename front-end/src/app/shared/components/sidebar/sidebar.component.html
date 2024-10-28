@@ -27,16 +27,16 @@
     <div class="playlist p-3">
         @if (playlist) {
             @for (song of playlist.songs; let i = $index; track $index) {
-                <button class="sneaky music d-flex w-100 justify-content-between align-items-center">
+                <button (click)="select(song)" class="sneaky music d-flex w-100 justify-content-between align-items-center">
                     <div class="music-info d-flex align-items-center">
                         <p>{{ i+1 | digits:playlist.songs.length:'0':true }}</p>
-                        <img [src]="song.thumbnailSrc" alt="music cover" class="music-img">
+                        <img [src]="song.thumbnailSrc || 'assets/no-album-cover.jpg'" alt="music cover" class="music-img">
                         <div>
-                            <h3 class="text-emphasis">{{ song.name }}</h3>
+                            <h3 [class.text-emphasis]="playingId == song.id">{{ song.name }}</h3>
                             <h4>{{ song.performer?.name || "Unknown Artist" }}</h4>
                         </div>
                     </div>
-                    <i class="fa-regular fa-circle-play"></i>
+                    <i [ngClass]="['fa-regular', playingId == song.id ? 'fa-circle-pause' : 'fa-circle-play']"></i>
                 </button>
             }
         }

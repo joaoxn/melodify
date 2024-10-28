@@ -34,13 +34,13 @@ export class SongService {
     return this.http.get<RawSong>(`${this.apiUrl}/${id}`)
   }
 
-  getFromRaw(rawUser: RawSong): Observable<RawSong> {
+  getFromRaw(rawUser: RawSong): Observable<Song> {
     const getPerformerObservable: Observable<Performer | undefined> = rawUser.performerId ? this.performerService.get(rawUser.performerId) : of(undefined);
     return getPerformerObservable.pipe(
-      map((role) => {
+      map((performer) => {
         return {
           ...rawUser,
-          role: role
+          performer: performer
         };
       }),
       switchMap((obj) => {

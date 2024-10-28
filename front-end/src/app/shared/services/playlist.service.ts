@@ -19,7 +19,12 @@ export class PlaylistService {
     private http: HttpClient,
     private userService: UserService,
     private songService: SongService
-  ) { }
+  ) {
+    this.get("0").subscribe(playlist => {
+      this.getFromRaw(playlist).subscribe(playlist => this.setCurrentPlaylist(playlist)); this.getCurrentPlaylist().subscribe(playlist => console.log("playlist service with current playlist:", playlist));
+    }
+    );
+  }
 
   getCurrentPlaylist(): Observable<Playlist | null> {
     return this.currentPlaylistSubject.asObservable();
@@ -38,27 +43,27 @@ export class PlaylistService {
   }
 
   getFromRaw(rawPlaylist: RawPlaylist): Observable<Playlist> {
-    return forkJoin(rawPlaylist.allowedUserIds.map(id => this.userService.get(id))).pipe(
-      map(allowedUsers => {
-        return {
-          ...rawPlaylist,
-          allowedUsers
-        };
-      }),
-      switchMap((obj) => {
-        return forkJoin(obj.songIds?.map((id) => this.songService.get(id)))
-          .pipe(map((songs) => ({ ...obj, songs })))
-      }),
-      switchMap(obj =>
-        forkJoin(obj.allowedUsers.map(user => this.userService.getFromRaw(user)))
-          .pipe(map((allowedUsers) => ({ ...obj, allowedUsers })))
-      ),
-      switchMap(obj =>
-        forkJoin(obj.songs.map(song => this.songService.getFromRaw(song)))
-          .pipe(map((songs) => ({ ...obj, songs })))
-      )
-    )
-  }
+    const allowedUsers$ = forkJoin(
+        rawPlaylist.allowedUserIds.map(id => this.userService.get(id).pipe(
+            switchMap(user => this.userService.getFromRaw(user))
+        ))
+    );
+
+    const songs$ = forkJoin(
+        rawPlaylist.songIds.map(id => this.songService.get(id).pipe(
+            switchMap(song => this.songService.getFromRaw(song))
+        ))
+    );
+
+    return forkJoin([allowedUsers$, songs$]).pipe(
+        map(([allowedUsers, songs]) => ({
+            ...rawPlaylist, 
+            allowedUsers, 
+            songs
+        }))
+    );
+}
+
 
   add(playlist: Request<RawPlaylist>): Observable<RawPlaylist> {
     return this.http.post<RawPlaylist>(this.apiUrl, playlist);

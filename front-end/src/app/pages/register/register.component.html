@@ -12,6 +12,9 @@
         <div class="col-lg-9 mb-5 form-wrapper">
             <h1 class="mb-5">Register</h1>
             <form [formGroup]="form" (submit)="register()">
+                @if (globalErrorMessage) {
+                    <mat-error id="global-error" class="text-center">{{globalErrorMessage}}</mat-error>
+                }
                 <div class="inputs-line">
                     <div class="form-outline mb-4 custom-form">
                         <label class="form-label" for="name">Full Name</label>

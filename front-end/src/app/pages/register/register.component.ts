@@ -12,7 +12,7 @@ import { FormValidationService } from '../../shared/services/form-validation.ser
   selector: 'app-register',
   standalone: true,
   imports: [
-    RouterLink, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, 
+    RouterLink, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule,
     FormsModule, ReactiveFormsModule
   ],
   templateUrl: './register.component.html',
@@ -23,10 +23,13 @@ export class RegisterComponent implements OnInit {
   form!: FormGroup;
   hidePassword = true;
 
+  serviceLoading = false;
+  globalErrorMessage?: string;
+
   constructor(
     private userService: UserService, private formValidationService: FormValidationService,
     private fb: FormBuilder, private router: Router
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -36,28 +39,39 @@ export class RegisterComponent implements OnInit {
       confirmPassword: ['', Validators.required]
     })
   }
-
+  
   confirmPasswordChange() {
     const password = this.form.get('password');
     const confirmPassword = this.form.get('confirmPassword');
-  
+    
     if (confirmPassword && password && confirmPassword.value !== password.value) {
       confirmPassword.setErrors({ passwordMismatch: true });
     } else {
       confirmPassword?.setErrors(null);  // Clear error if they match
     }
   }
-
+  
   togglePasswordVisibility() {
     this.hidePassword = !this.hidePassword;
   }
   
+  hasError(inputName: string): boolean {
+    return this.formValidationService.inputHasError(this.form, inputName);
+  }
+
+  getError(inputName: string): string | undefined {
+    return this.formValidationService.getInputErrorMessage(this.form, inputName);
+  }
+
   register() {
     if (this.form.invalid) {
       console.error('Form is invalid');
       this.form.markAllAsTouched();
       return;
     }
+
+    const defaultUserErrorMessage = "E-mail já cadastrado. Entre ou cadastre um novo e-mail!";
+    const defaultServerErrorMessage = "Erro ao cadastrar-se! Tente novamente mais tarde...";
 
     const newUser = {
       name: this.form.get('name')!.value,
@@ -68,23 +82,19 @@ export class RegisterComponent implements OnInit {
 
     console.log("Adding new user:", newUser.name, "with email:", newUser.email);
 
-    this.userService.add(newUser).subscribe({
+    this.userService.register(newUser).subscribe({
       next: (user) => {
         console.log('User added successfully:', user);
+        this.router.navigate(['/home']);
       },
-      error: (error) => {
-        console.error('Error adding user:', error);
+      error: (error: Error) => {
+        this.serviceLoading = false;
+        console.error(error);
+        if (error.message.slice(0, 21) === "DuplicateEntityError:")
+          this.globalErrorMessage = defaultUserErrorMessage;
+        else
+          this.globalErrorMessage = "Erro ao cadastrar-se! Tente novamente mais tarde...";
       }
     });
-
-    this.router.navigate(['/home']);
-  }
-
-  hasError(inputName: string): boolean {
-    return this.formValidationService.inputHasError(this.form, inputName);
-  }
-
-  getError(inputName: string): string | undefined {
-    return this.formValidationService.getInputErrorMessage(this.form, inputName);
   }
 }

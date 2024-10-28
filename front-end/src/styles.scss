@@ -58,3 +58,12 @@ html {
     scrollbar-width: thin;
     scrollbar-color: var(--tertiary-color) #080f1c;
 }
+
+.underlined {
+    border-bottom: 2px solid #00ECFF;
+}
+
+.disabled {
+    opacity: 0.2;
+    color: var(--font-color);
+}

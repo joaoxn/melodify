@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RawUser, User } from '../interfaces/user';
-import { map, Observable } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 import { Request } from '../interfaces/generics';
 import { Role } from '../interfaces/role';
 
@@ -14,7 +14,26 @@ export class UserService {
 
   public currentUser?: User;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
+
+  changeCurrent(user: Request<RawUser> | Request<User>): Observable<User> {
+    const rawUser = this.convertRequestToRaw(user);
+    let observable$ = this.currentUser ? this.set(this.currentUser.id, rawUser) : this.add(rawUser);
+    return observable$.pipe(
+      switchMap(rawUser => this.getFromRaw(rawUser)),
+      map(user => this.currentUser = user)
+    );
+  }
+
+  convertRequestToRaw(user: Request<User> | Request<RawUser>): Request<RawUser> {
+    if ('role' in user) {
+      return {
+        ...user,
+        roleId: user.role.id
+      };
+    }
+    return user;
+  }
 
   getAll(): Observable<RawUser[]> {
     return this.http.get<RawUser[]>(this.apiUrl);

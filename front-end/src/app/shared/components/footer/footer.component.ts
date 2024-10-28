@@ -1,10 +1,12 @@
 import { isPlatformBrowser, NgClass } from '@angular/common';
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { SongService } from '../../services/song.service';
 import { Song } from '../../interfaces/song';
 import { PlaylistService } from '../../services/playlist.service';
 import { Playlist } from '../../interfaces/playlist';
+import { UserService } from '../../services/user.service';
+import { User } from '../../interfaces/user';
 
 enum LoopState {
   OFF,
@@ -20,7 +22,9 @@ enum LoopState {
   styleUrl: './footer.component.scss'
 })
 
-export class FooterComponent implements OnInit {
+export class FooterComponent implements OnInit, OnDestroy {
+  currentUser?: User;
+
   audio?: HTMLAudioElement;
   currentSong: Song | null = null;
   currentPlaylist: Playlist | null = null;
@@ -32,8 +36,9 @@ export class FooterComponent implements OnInit {
   loop: LoopState = LoopState.ALL;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object,
-    private songService: SongService, private playlistService: PlaylistService) {
-    // Check if running in the browser
+    private songService: SongService, 
+    private playlistService: PlaylistService,
+    private userService: UserService) {
     if (isPlatformBrowser(this.platformId)) {
       this.audio = new Audio();
 
@@ -52,6 +57,7 @@ export class FooterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currentUser = this.userService.currentUser;
     if (!this.audio) return;
 
     this.audio.addEventListener('play', () => this.playing = true);
@@ -74,6 +80,11 @@ export class FooterComponent implements OnInit {
     navigator.mediaSession.setActionHandler('pause', () => this.audio?.pause());
     navigator.mediaSession.setActionHandler('previoustrack', () => this.previous());
     navigator.mediaSession.setActionHandler('nexttrack', () => this.next());
+  }
+
+  ngOnDestroy(): void {
+    if (this.currentUser?.config)
+      this.userService.changeCurrent(this.currentUser);
   }
 
   globalKeyupListener(event: KeyboardEvent) {
@@ -164,7 +175,12 @@ export class FooterComponent implements OnInit {
   volume(value: any) {
     if (!this.audio) return;
 
-    value = Math.pow(Number.parseInt(value) / 100, 2);
-    this.audio.volume = value;
+    const volume = Math.pow(Number.parseInt(value) / 100, 2);
+    if (volume == this.audio.volume) return;
+    this.audio.volume = volume;
+
+    if (!this.currentUser?.config) return;
+
+    this.currentUser.config.volume = value;
   }
 }

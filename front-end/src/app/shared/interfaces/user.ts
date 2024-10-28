@@ -6,6 +6,9 @@ export interface RawUser {
     email: string;
     password: string;
     roleId: string;
+    config?: {
+        volume: number;
+    }
 }
 
 export interface User {

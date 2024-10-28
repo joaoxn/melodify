@@ -13,12 +13,17 @@
 
     
     div#controls {
-        width: 10rem;
+        width: 15rem;
+        margin-left: 5rem;
+        .custom-repeat-1 {
+            background-image: url("assets/repeat-1.png"); // TODO
+        }
     }
 
     div#seekbar-dashboard {
         flex-grow: 1;
         max-width: 60%;
+        margin: 0 5rem;
 
         #seekbar {
             flex-grow: 1;
@@ -26,14 +31,11 @@
     }
 
     #volume-dashboard {
-        width: 10.5rem;
-        
-        display: flex;
-        flex-wrap: nowrap;
-        flex-direction: row-reverse;
+        border: 0.15rem solid #3740586e;
+        border-radius: 0.5rem;
     }
 }
 
 ::ng-deep .mdc-slider__value-indicator {
-    background-color: hsl(200, 75%, 38%) !important; // Adjust this color to the desired darker shade
+    background-color: hsl(200, 61%, 30%) !important; // Adjust this color to the desired darker shade
 }

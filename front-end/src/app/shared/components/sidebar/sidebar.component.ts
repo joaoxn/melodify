@@ -25,7 +25,8 @@ export class SidebarComponent implements OnInit {
     this.songService.getCurrentSong().subscribe(song => this.playingId = song?.id);
   }
 
-  select(song: Song): void {
+  select(song: Song, index: number): void {
     this.songService.setCurrentSong(song);
+    this.playlistService.currentSongIndex = index;
   }
 }

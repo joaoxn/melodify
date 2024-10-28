@@ -14,15 +14,15 @@ export class PlaylistService {
   private readonly apiUrl = 'http://localhost:3000/playlist';
 
   private currentPlaylistSubject = new BehaviorSubject<Playlist | null>(null);
+  public currentSongIndex?: number;
 
   constructor(
     private http: HttpClient,
     private userService: UserService,
     private songService: SongService
   ) {
-    this.get("0").subscribe(playlist => {
-      this.getFromRaw(playlist).subscribe(playlist => this.setCurrentPlaylist(playlist)); this.getCurrentPlaylist().subscribe(playlist => console.log("playlist service with current playlist:", playlist));
-    }
+    this.get("0").subscribe(playlist =>
+      this.getFromRaw(playlist).subscribe(playlist => this.setCurrentPlaylist(playlist))
     );
   }
 

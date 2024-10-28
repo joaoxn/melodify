@@ -10,6 +10,12 @@
         <button class="sneaky" (click)="next()">
             <i class="fa-regular fa-circle-right" aria-hidden="true"></i>
         </button>
+        <button class="sneaky" (click)="shuffle()">
+            <i class="fa-solid fa-shuffle" aria-hidden="true"></i>
+        </button>
+        <button class="sneaky" (click)="nextLoopState()">
+            <i [ngClass]="{'fa-solid': true, 'fa-repeat': loop == 0 || loop == 2, 'custom-repeat-1': loop == 1, 'text-emphasis': loop !== 0}" aria-hidden="true"></i>
+        </button>
     </div>
     <div id="seekbar-dashboard">
         <span>{{ formatTime(seekbarInput.value) }}</span>
@@ -18,8 +24,8 @@
         </mat-slider>
         <span>{{ formatTime(songDuration) }}</span>
     </div>
-    <i class="fa fa-volume-up" aria-hidden="true"></i>
     <div id="volume-dashboard">
+        <i class="fa fa-volume-up" aria-hidden="true"></i>
         <mat-slider id="volume-slider" min="0" max="100" step="1" #volumeSlider>
             <input matSliderThumb #volumeInput value="100" (input)="volume(volumeInput.value)">
         </mat-slider>

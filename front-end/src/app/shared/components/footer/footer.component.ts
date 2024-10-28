@@ -3,6 +3,14 @@ import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { SongService } from '../../services/song.service';
 import { Song } from '../../interfaces/song';
+import { PlaylistService } from '../../services/playlist.service';
+import { Playlist } from '../../interfaces/playlist';
+
+enum LoopState {
+  OFF,
+  ONE,
+  ALL
+}
 
 @Component({
   selector: 'app-footer',
@@ -15,12 +23,16 @@ import { Song } from '../../interfaces/song';
 export class FooterComponent implements OnInit {
   audio?: HTMLAudioElement;
   currentSong: Song | null = null;
+  currentPlaylist: Playlist | null = null;
 
   playing: boolean = false;
   currentTime: number = 0;
   songDuration: number = 0;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private songService: SongService) {
+  loop: LoopState = LoopState.ALL;
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, 
+  private songService: SongService, private playlistService: PlaylistService) {
     // Check if running in the browser
     if (isPlatformBrowser(this.platformId)) {
       this.audio = new Audio();
@@ -44,7 +56,16 @@ export class FooterComponent implements OnInit {
 
     this.audio.addEventListener('play', () => this.playing = true);
     this.audio.addEventListener('pause', () => this.playing = false);
-    this.audio.addEventListener('ended', () => this.playing = false);
+    this.audio.addEventListener('ended', () => {
+      if (this.loop != LoopState.ONE) {
+      this.next();
+      return;
+      }
+      this.goTo(0);
+      this.audio?.play();
+    });
+
+    this.playlistService.getCurrentPlaylist().subscribe(playlist => this.currentPlaylist = playlist);
 
     this.songService.getCurrentSong().subscribe((song) => {
       if (!song || !this.audio) return;
@@ -70,14 +91,37 @@ export class FooterComponent implements OnInit {
   }
 
   previous() {
-    if (!this.audio) return;
-    
+    let index = this.playlistService.currentSongIndex;
+    const songs = this.currentPlaylist?.songs;
+    if (index === undefined || !songs) return;
+
+    index--;
+
+    if (true && index < 0) index = songs.length - 1;
+
+    this.songService.setCurrentSong(songs[index]);
+    this.playlistService.currentSongIndex = index;
   }
   
   next() {
-    if (!this.audio) return;
-    
+    let index = this.playlistService.currentSongIndex;
+    const songs = this.currentPlaylist?.songs;
+    if (index === undefined || !songs) return;
 
+    index++;
+
+    if (this.loop != LoopState.OFF) index %= songs.length;
+
+    this.songService.setCurrentSong(songs[index]);
+    this.playlistService.currentSongIndex = index;
+  }
+
+  shuffle() {
+    // TODO
+  }
+
+  nextLoopState() {
+    this.loop = (this.loop + 1) % 3;
   }
   
   goTo(timestamp: any) {

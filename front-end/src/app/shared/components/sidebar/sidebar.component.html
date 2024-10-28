@@ -26,8 +26,8 @@
     </div>
     <div class="playlist p-3">
         @if (playlist) {
-            @for (song of playlist.songs; let i = $index; track $index) {
-                <button (click)="select(song)" class="sneaky music d-flex w-100 justify-content-between align-items-center">
+            @for (song of playlist.songs; let i = $index; track song.id) {
+                <button (click)="select(song, i)" class="sneaky music d-flex w-100 justify-content-between align-items-center">
                     <div class="music-info d-flex align-items-center">
                         <p>{{ i+1 | digits:playlist.songs.length:'0':true }}</p>
                         <img [src]="song.thumbnailSrc || 'assets/no-album-cover.jpg'" alt="music cover" class="music-img">

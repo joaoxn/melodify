@@ -1,7 +1,7 @@
 export interface Performer {
     id: string;
     name: string;
-    artists: {
+    artists?: {
         name: string;
         performerRole: string;
     }[]

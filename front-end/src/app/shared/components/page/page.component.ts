@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { DigitsPipe } from '../../pipes/digits.pipe';
+import { HeaderComponent } from '../header/header.component';
+
 
 @Component({
   selector: 'app-page',
   standalone: true,
-  imports: [RouterOutlet, DigitsPipe],
+  imports: [RouterOutlet, DigitsPipe, HeaderComponent],
   templateUrl: './page.component.html',
   styleUrl: './page.component.scss'
 })

@@ -1,35 +1,48 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../interfaces/user';
+import { RawUser, User } from '../interfaces/user';
 import { map, Observable } from 'rxjs';
-import { UserRequest } from '../interfaces/user-request';
+import { Request } from '../interfaces/generics';
+import { Role } from '../interfaces/role';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   private readonly apiUrl = 'http://localhost:3000/user';
+  private readonly roleUrl = 'http://localhost:3000/role';
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl);
+  getAll(): Observable<RawUser[]> {
+    return this.http.get<RawUser[]>(this.apiUrl);
   }
 
-  get(id: string): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}?id=${id}`);
+  get(id: string): Observable<RawUser> {
+    return this.http.get<RawUser>(`${this.apiUrl}/${id}`);
+  }
+
+  getFromRaw(rawUser: RawUser): Observable<User> {
+    return this.getRole(rawUser.roleId).pipe(
+      map((role) => {
+        return {
+          ...rawUser,
+          role: role
+        };
+      })
+    )
   }
 
   getAllArtists() {
-    return this.http.get<User[]>(`${this.apiUrl}?roleId=${2}`);
+    return this.http.get<RawUser[]>(`${this.apiUrl}?roleId=${2}`);
   }
 
-  add(user: UserRequest): Observable<User> {
-    return this.http.post<User>(this.apiUrl, user);
+  add(user: Request<RawUser>): Observable<RawUser> {
+    return this.http.post<RawUser>(this.apiUrl, user);
   }
 
-  set(id: string, user: UserRequest): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/${id}`, user);
+  set(id: string, user: Request<RawUser>): Observable<RawUser> {
+    return this.http.put<RawUser>(`${this.apiUrl}/${id}`, user);
   }
 
   delete(id: string): Observable<void> {
@@ -40,17 +53,21 @@ export class UserService {
     return this.getAll().pipe(map((users) => users.length));
   }
 
-  getByRole(roleId: string): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}?roleId=${roleId}`);
+  getByRole(roleId: string): Observable<RawUser[]> {
+    return this.http.get<RawUser[]>(`${this.apiUrl}?roleId=${roleId}`);
   }
 
   getCountByRole(roleId: string): Observable<number> {
     return this.http
-      .get<User[]>(`${this.apiUrl}?roleId=${roleId}`)
+      .get<RawUser[]>(`${this.apiUrl}?roleId=${roleId}`)
       .pipe(map((users) => users.length));
   }
 
-  searchByName(name: string): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}?name_like=${name}`);
+  searchByName(name: string): Observable<RawUser[]> {
+    return this.http.get<RawUser[]>(`${this.apiUrl}?name_like=${name}`);
+  }
+
+  getRole(id: string): Observable<Role> {
+    return this.http.get<Role>(`${this.roleUrl}/${id}`);
   }
 }

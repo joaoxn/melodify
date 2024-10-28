@@ -4,7 +4,7 @@
         <button class="sneaky" (click)="previous()">
             <i class="fa-regular fa-circle-left" aria-hidden="true"></i>
         </button>
-        <button class="sneaky" (click)="playSwitch()">
+        <button class="sneaky" (click)="playing ? audio?.pause() : audio?.play()">
             <i [ngClass]="['big', 'fa-solid', playing ? 'fa-pause' : 'fa-play']" aria-hidden="true"></i>
         </button>
         <button class="sneaky" (click)="next()">

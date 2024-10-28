@@ -1,8 +1,8 @@
 import { isPlatformBrowser, NgClass } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
+import { SongService } from '../../services/song.service';
 import { Song } from '../../interfaces/song';
-import { log } from 'node:console';
 
 @Component({
   selector: 'app-footer',
@@ -13,24 +13,20 @@ import { log } from 'node:console';
 })
 
 export class FooterComponent implements OnInit {
-  song: Song = {
-    name: "Young",
-    artistName: "Vacations",
-    views: 0
-  };
   audio?: HTMLAudioElement;
+  currentSong: Song | null = null;
 
   playing: boolean = false;
   currentTime: number = 0;
   songDuration: number = 0;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private songService: SongService) {
     // Check if running in the browser
     if (isPlatformBrowser(this.platformId)) {
-      this.audio = new Audio("assets/Young.mp3");
+      this.audio = new Audio();
 
       
-    window.addEventListener('keydown', this.globalKeydownListener.bind(this));
+    window.addEventListener('keyup', this.globalKeyupListener.bind(this));
 
       this.audio.onloadedmetadata = () => {
         this.songDuration = this.audio!.duration;
@@ -44,14 +40,25 @@ export class FooterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.audio?.addEventListener('play', () => this.playSwitch(true));
-    this.audio?.addEventListener('pause', () => this.playSwitch(false));
-    this.audio?.addEventListener('ended', () => this.playSwitch(false));
+    if (!this.audio) return;
+
+    this.audio.addEventListener('play', () => this.playing = true);
+    this.audio.addEventListener('pause', () => this.playing = false);
+    this.audio.addEventListener('ended', () => this.playing = false);
+
+    this.songService.currentSong$.subscribe((song) => {
+      if (!song || !this.audio) return;
+      this.currentSong = song;
+      
+      this.audio.src = song.src;
+      this.audio.load();
+      this.audio.play();
+    })
   }
 
-  globalKeydownListener(event: KeyboardEvent) {
+  globalKeyupListener(event: KeyboardEvent) {
     if (event.code === 'Space') {
-      this.playSwitch();
+      this.playing ? this.audio?.pause() : this.audio?.play();
     }
   }
 
@@ -71,25 +78,6 @@ export class FooterComponent implements OnInit {
     if (!this.audio) return;
     
 
-  }
-
-  playSwitch(playing?: boolean) {
-    console.log("playSwitch called");
-    console.log("Playing variable:", this.playing);
-    if (playing)
-      this.playing = playing;
-    else
-      this.playing = !this.playing;
-
-    if (!this.audio) return;
-
-    if (this.playing) {
-      this.audio.play();
-    } else {
-      this.audio.pause();
-    }
-    
-    console.log("Playing variable after call:", this.playing);
   }
   
   goTo(timestamp: any) {

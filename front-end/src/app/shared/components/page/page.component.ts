@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { DigitsPipe } from '../../pipes/digits.pipe';
 import { FooterComponent } from '../footer/footer.component';
+import { Song } from '../../interfaces/song';
 
 @Component({
   selector: 'app-page',
@@ -11,15 +12,7 @@ import { FooterComponent } from '../footer/footer.component';
   styleUrl: './page.component.scss'
 })
 export class PageComponent {
-  playlist: {
-    id: string,
-    name: string,
-    artist: string,
-    thumbnail: string
-  }[] = [{
-    id: "0", 
-    name: "1989", 
-    artist: "Taylor Swift", 
-    thumbnail: "assets/album-taylor.jpeg"
-  }]
+  playlist?: Song[];
+
+  
 }

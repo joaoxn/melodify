@@ -15,10 +15,11 @@
         width: 30%;
     }
     
-    .right-section {
+    .main-section {
         padding: 20px;
         background-color: var(--primary-color);
         width: 70%;
+        overflow: auto;
     }
 
     .footer {

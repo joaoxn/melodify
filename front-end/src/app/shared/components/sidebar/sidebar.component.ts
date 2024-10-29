@@ -6,11 +6,12 @@ import { PlaylistService } from '../../services/playlist.service';
 import { Playlist } from '../../interfaces/playlist';
 import { SongService } from '../../services/song.service';
 import { NgClass } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [NgClass, DigitsPipe, LimitPipe],
+  imports: [RouterLink, NgClass, DigitsPipe, LimitPipe],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })

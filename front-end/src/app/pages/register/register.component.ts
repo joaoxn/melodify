@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { UserService } from '../../shared/services/user.service';
 import { FormValidationService } from '../../shared/services/form-validation.service';
+import { LoopState } from '../../shared/enums/loop-state';
 
 @Component({
   selector: 'app-register',
@@ -77,7 +78,11 @@ export class RegisterComponent implements OnInit {
       name: this.form.get('name')!.value,
       email: this.form.get('email')!.value,
       password: this.form.get('password')!.value,
-      roleId: "0"
+      roleId: "0",
+      config: {
+        loopState: LoopState.OFF,
+        volume: 100
+      }
     }
 
     console.log("Adding new user:", newUser.name, "with email:", newUser.email);

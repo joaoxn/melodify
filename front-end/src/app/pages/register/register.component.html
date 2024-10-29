@@ -4,7 +4,7 @@
             <img src="assets/Melodify logo.png" alt="Melodify Logo" class="logo">
             <h1>Melodify</h1>
         </div>
-        <div class="left-image-container">
+        <div class="image-container">
             <img src="assets/remedin.png" alt="Background image">
         </div>
     </div>
@@ -54,7 +54,7 @@
                         <label for="confirmPassword">Confirm Password</label>
                         <mat-form-field appearance="fill">
                             <input placeholder="Confirm your password" id="confirmPassword" matInput (input)="confirmPasswordChange()"
-                                [type]="hidePassword ? 'password' : 'text'" formControlName="confirmPassword" required />
+                                type="password" formControlName="confirmPassword" required />
                             @if (hasError("confirmPassword")) {
                                 <mat-error>{{ getError("confirmPassword") }}</mat-error>
                             }

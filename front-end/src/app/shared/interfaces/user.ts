@@ -1,3 +1,4 @@
+import { LoopState } from "../enums/loop-state";
 import { Role } from "./role";
 
 export interface RawUser {
@@ -6,7 +7,8 @@ export interface RawUser {
     email: string;
     password: string;
     roleId: string;
-    config?: {
+    config: {
+        loopState: LoopState;
         volume: number;
     }
 }
@@ -17,7 +19,8 @@ export interface User {
     email: string;
     password: string;
     role: Role;
-    config?: {
+    config: {
+        loopState: LoopState;
         volume: number;
     }
 }

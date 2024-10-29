@@ -1,0 +1,49 @@
+<section class="col-md-3 d-flex flex-column">
+    <div class="sticky-top">
+        <div class="top-left d-flex justify-content-between align-items-center p-3">
+            <h1 class="text-white">Playlist</h1>
+            <button class="sneaky" routerLink="home">
+                <img src="assets/Melodify logo.png" alt="logo" class="logo">
+            </button>
+        </div>
+        <hr>
+    </div>
+    <div class="playlist-selector-left p-3">
+        <div class="playlist-selector-left-flex">
+            <div class="playlist-selector text-emphasis">
+                <i class="fa-sharp fa-solid fa-music"></i>
+                <h2>Playing now</h2>
+            </div>
+            <div class="d-flex  mt-2">
+                <i class="fa-solid fa-users"></i>
+                <i class="fa-solid fa-plus"></i>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+        </div>
+        <div class="playlist-selector-music d-flex align-items-center">
+            <i class="fa-regular fa-circle"></i>
+            <h3>Last listening</h3>
+        </div>
+        <div class="playlist-selector-music d-flex align-items-center">
+            <i class="fa-regular fa-circle"></i>
+            <h3>Recommend</h3>
+        </div>
+    </div>
+    <div class="playlist p-3">
+        @if (playlist) {
+        @for (song of playlist.songs; let i = $index; track song.id) {
+        <button (click)="select(song, i)" class="sneaky music d-flex w-100 justify-content-between align-items-center">
+            <div class="music-info d-flex align-items-center">
+                <p>{{ i+1 | digits:playlist.songs.length:'0':true }}</p>
+                <img [src]="song.thumbnailSrc || 'assets/no-album-cover.jpg'" alt="music cover" class="music-img">
+                <div class="w-100">
+                    <h3 [class.text-emphasis]="playingId == song.id">{{ song.name }}</h3>
+                    <h4>{{ song.performer?.name || "Unknown Artist" }}</h4>
+                </div>
+            </div>
+            <i [ngClass]="['fa-regular', playingId == song.id ? 'fa-circle-pause' : 'fa-circle-play']"></i>
+        </button>
+        }
+        }
+    </div>
+</section>

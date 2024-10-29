@@ -1,52 +1,9 @@
-<div id="page-wrapper" class="container-fluid">
-    <div class="row">
-        <section class="col-md-3 left-section d-flex flex-column">
-            <div class="top-left d-flex justify-content-between align-items-center p-3">
-                <h1 class="text-white">Playlist</h1>
-                <img src="assets/Melodify logo.png" alt="logo" class="logo">
-            </div>
-            <div class="playlist-selector-left p-3">
-                <div class="playlist-selector-left-flex">
-                    <div class="playlist-selector text-emphasis">
-                        <i class="fa-sharp fa-solid fa-music"></i>
-                        <h2>Playing now</h2>
-                    </div>
-                    <div class="d-flex  mt-2">
-                        <i class="fa-solid fa-users"></i>
-                        <i class="fa-solid fa-plus"></i>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </div>
-                </div>
-                <div class="playlist-selector-music d-flex align-items-center">
-                    <i class="fa-regular fa-circle"></i>
-                    <h3>Last listening</h3>
-                </div>
-                <div class="playlist-selector-music d-flex align-items-center">
-                    <i class="fa-regular fa-circle"></i>
-                    <h3>Recommend</h3>
-                </div>
-            </div>
-            <div class="playlist p-3">
-                @for (music of playlist; let i = $index; track $index) {
-                    <button class="sneaky music d-flex w-100 justify-content-between align-items-center">
-                        <div class="music-info d-flex align-items-center">
-                            <p>{{ i+1 | digits: playlist.length }}</p>
-                            <img [src]="music.thumbnail" alt="music cover" class="music-img">
-                            <div>
-                                <h3 class="text-emphasis">{{ music.name }}</h3>
-                                <h4>{{ music.artist }}</h4>
-                            </div>
-                        </div>
-                        <i class="fa-regular fa-circle-play"></i>
-                    </button>
-                }
-            </div>
-        </section>
+<div id="page-wrapper">
+    <div class="top-row">
+        <app-sidebar class="playlist-section"></app-sidebar>
         <main class="col-md-8 right-section">
             <router-outlet></router-outlet>
         </main>
     </div>
-    <footer class="footer p-3 text-center">
-        footer
-    </footer>
+    <app-footer class="footer p-3 text-center"></app-footer>
 </div>

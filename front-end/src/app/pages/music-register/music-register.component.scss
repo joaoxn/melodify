@@ -1,0 +1,68 @@
+
+.all-musicRegister {
+    background: linear-gradient(10deg, var(--primary-color), var(--tertiary-color), var(--secondary-color));
+    padding: 40px 0; 
+    min-height: 100vh; 
+}
+
+.container-musicRegister {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: var(--secondary-color);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0px 4px 8px rgba(0, 242, 246, 0.66);
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-color);
+}
+
+.container-musicRegister h1 {
+    font-size: 1.8em;
+    text-align: center;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.musicRegister-content {
+    width: 100%;
+    max-width: 600px;
+}
+
+mat-form-field {
+    width: 100%;
+    margin-bottom: 15px; 
+}
+
+mat-label {
+    color: var(--font-color);
+}
+
+input#cover.form-control {
+    background-color: var(--input-color);
+    color: var(--font-color);
+    width: 34em;
+    border: 4px solid var(--border-color2);
+    margin-bottom: 10px;
+
+    &:focus {
+        border: 4px solid var(--border-color);
+    }
+}
+
+input#cover.form-control::-webkit-file-upload-button {
+    background-color: var(--input-color);
+    color: var(--font-color);
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+input#cover.form-control::-webkit-file-upload-button:hover {
+    border: 2px solid var(--border-color);
+}
+    
+

@@ -1,0 +1,42 @@
+<div class="all-musicRegister">
+    <div class="container-musicRegister d-flex ">
+        <h1>Register of Music</h1>
+        <div class="musicRegister-content">
+            <form [formGroup]="uploadForm">
+                <label class="form-label" for="musicName">Music Name</label>
+                <mat-form-field>
+                    <input id="musicName" matInput placeholder="Name of your song here" formControlName="musicName">
+                </mat-form-field>
+
+                <label class="form-label" for="name">Your artistic name </label>
+                <mat-form-field>
+                    <input id="name" matInput placeholder="Your artistic name here" formControlName="name">
+                </mat-form-field>
+
+                <label class="form-label" for="musicGenre">Genre(s)</label>
+                <mat-form-field>
+                    <mat-label>Click to select</mat-label>
+                    <mat-select id="musicGenre" [formControl]="toppings" multiple>
+                        @for (topping of toppingList; track topping) {
+                        <mat-option [value]="topping">{{topping}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+
+                <div class="filesInput">
+                    <label for="cover" class="d-flex">Insert Cover</label>
+                    <input type="file" id="cover" (change)="onFileSelected($event, 'cover')" class="form-control" accept="image/*" />
+                    <p *NgIf="selectedCover">Selected cove: {{ selectedCover?.name }}</p>
+                </div>
+                <div class="filesInput">
+                    <label for="cover" class="d-flex">Insert Music</label>
+                    <input type="file" id="cover" (change)="onFileSelected($event, 'cover')" class="form-control" accept="audio/*z" />
+                    <p *NgIf="selectedCover">Selected cover: {{ selectedCover?.name }}</p>
+                </div>
+                <button type="submit" class="btn btn-lg btn-outline-primary shadow-lg w-100 btn-custom btn-animated text-white m-3">
+                    Register
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

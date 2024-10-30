@@ -1,8 +1,11 @@
-
+/* Estilos principais */
 .all-musicRegister {
     background: linear-gradient(10deg, var(--primary-color), var(--tertiary-color), var(--secondary-color));
     padding: 40px 0; 
-    min-height: 100vh; 
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container-musicRegister {
@@ -12,11 +15,11 @@
     border-radius: 20px;
     padding: 30px;
     box-shadow: 0px 4px 8px rgba(0, 242, 246, 0.66);
-    flex-wrap: wrap;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: var(--text-color);
+    flex-grow: 1;
 }
 
 .container-musicRegister h1 {
@@ -31,25 +34,53 @@
     max-width: 600px;
 }
 
-mat-form-field {
+.inputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
     width: 100%;
-    margin-bottom: 15px; 
 }
 
-mat-label {
-    color: var(--font-color);
+.input-label {
+    width: 100%;
+}
+
+@media (min-width: 769px) {
+    .input-label {
+        flex: 1 1 48%;
+    }
+}
+
+@media (max-width: 768px) {
+    .input-label {
+        width: 100%;
+    }
+}
+
+@media (max-height: 600px) {
+    .container-musicRegister {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.filesInput {
+    width: 100%;
 }
 
 input#cover.form-control {
     background-color: var(--input-color);
     color: var(--font-color);
-    width: 34em;
     border: 4px solid var(--border-color2);
     margin-bottom: 10px;
+}
 
-    &:focus {
-        border: 4px solid var(--border-color);
-    }
+input#cover.form-control:focus {
+    border: 4px solid var(--border-color);
 }
 
 input#cover.form-control::-webkit-file-upload-button {
@@ -64,5 +95,3 @@ input#cover.form-control::-webkit-file-upload-button {
 input#cover.form-control::-webkit-file-upload-button:hover {
     border: 2px solid var(--border-color);
 }
-    
-

@@ -1,5 +1,5 @@
 <div class="all-musicRegister">
-    <div class="container-musicRegister d-flex ">
+    <div class="container-musicRegister d-flex">
         <h1>Register of Music</h1>
         <div class="musicRegister-content">
             <form [formGroup]="uploadForm">
@@ -30,11 +30,11 @@
                     <div class="filesInput">
                         <label for="cover" class="d-flex">Insert Cover</label>
                         <input type="file" id="cover" (change)="onFileSelected($event, 'cover')" class="form-control" accept="image/*" />
-                        <p *NgIf="selectedCover">Selected cove: {{ selectedCover?.name }}</p>
+                        <p *NgIf="selectedCover">Selected cover: {{ selectedCover?.name }}</p>
                     </div>
                     <div class="filesInput">
                         <label for="cover" class="d-flex">Insert Music</label>
-                        <input type="file" id="cover" (change)="onFileSelected($event, 'cover')" class="form-control" accept="audio/*z" />
+                        <input type="file" id="cover" (change)="onFileSelected($event, 'cover')" class="form-control" accept="audio/*" />
                         <p *NgIf="selectedCover">Selected cover: {{ selectedCover?.name }}</p>
                     </div>
                 </div>

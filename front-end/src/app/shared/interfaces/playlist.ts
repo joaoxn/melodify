@@ -6,6 +6,7 @@ export interface RawPlaylist {
     name: string;
     public: boolean;
     allowedUserIds: string[];
+    views: number;
     songIds: string[];
 }
 
@@ -14,5 +15,6 @@ export interface Playlist {
     name: string;
     public: boolean;
     allowedUsers: User[];
+    views: number;
     songs: Song[];
 }

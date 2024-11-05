@@ -1,0 +1,52 @@
+<div class="grid-container">
+    <div class="right-section">
+        <div class="col-lg-9 mb-5 form-wrapper">
+            <h1 class="mb-5">Sign in to Your Account</h1>
+            <form [formGroup]="form" (ngSubmit)="login()">
+                <ng-container *ngIf="globalErrorMessage">
+                    <mat-error id="global-error">{{globalErrorMessage}}</mat-error>
+                </ng-container>
+                <div class="inputs-line">
+                    <div class="form-outline mb-4 custom-form">
+                        <label for="email">Email</label>
+                        <mat-form-field appearance="fill">
+                            <input placeholder="example@domain.com" id="email" matInput formControlName="email"
+                                required />
+                            <mat-error *ngIf="form.get('email')?.hasError('required')">Required field!</mat-error>
+                            <mat-error *ngIf="form.get('email')?.hasError('email')">E-mail invalid.</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="inputs-line">
+                    <div class="form-outline mb-4 custom-form">
+                        <label for="password">Password</label>
+                        <mat-form-field appearance="fill">
+                            <input placeholder="Your password here" id="password" matInput formControlName="password"
+                                [type]="hidePassword ? 'password' : 'text'" required />
+                            <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" type="button"
+                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                                <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                            </button>
+                            <mat-error *ngIf="form.get('password')?.hasError('required')">Required field!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <button type="submit"
+                    class="btn btn-lg btn-outline-primary shadow-lg w-100 btn-custom btn-animated text-white"
+                    [disabled]="serviceLoading">
+                    Sign in
+                </button>
+                <a routerLink="/register" class="link text-center white">Don't have an account? Register</a>
+            </form>
+        </div>
+    </div>
+    <div class="left-section">
+        <div class="top-left">
+            <img src="assets/Melodify logo.png" alt="Melodify Logo" class="logo" />
+            <h1>Melodify</h1>
+        </div>
+        <div class="image-container">
+            <img src="assets/background-image.png" alt="Background image" />
+        </div>
+    </div>
+</div>

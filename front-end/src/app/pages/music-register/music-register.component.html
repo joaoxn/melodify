@@ -8,7 +8,6 @@
                         <label for="file-song" class="d-flex">Insert Song File</label>
                         <input type="file" #fileSong id="file-song" (change)="onFileSelected(fileSong.files, 'song')" 
                         class="file-input form-control" accept="audio/*" />
-                        <p *NgIf="selectedCover">Selected cover: {{ selectedCover?.name }}</p>
                     </div>
                     <div class="input-label">
                         <label class="form-label" for="songName">Song Name</label>
@@ -43,10 +42,10 @@
                     <div class="sneaky music d-flex w-100 justify-content-between align-items-center">
                         <div class="music-info d-flex align-items-center">
                             <p>01</p>
-                            <img [src]="selectedCover || 'assets/no-album-cover.jpg'" alt="music cover" class="music-img">
+                            <img [src]="coverSrc || 'assets/no-album-cover.jpg'" alt="music cover" class="music-img">
                             <div class="w-100">
-                                <h3>{{ form.get('songName') }}</h3>
-                                <h4>{{ form.get('artistName') || "Unknown Artist" }}</h4>
+                                <h3 class="preview">{{ form.get('songName')?.value || "No Name" }}</h3>
+                                <h4 class="preview">{{ form.get('artistName')?.value || "Unknown Artist" }}</h4>
                             </div>
                         </div>
                         <i class="fa-regular fa-circle-play"></i>

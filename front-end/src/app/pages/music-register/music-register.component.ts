@@ -30,7 +30,7 @@ export class MusicRegisterComponent {
   toppingList: string[] = ['Pop', 'Trap', 'Geekie', 'K-pop', 'HipHop', 'JAVA ETC'];
 
   form: FormGroup;
-  selectedCover: File | null = null;
+  coverSrc?: string;
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -43,10 +43,13 @@ export class MusicRegisterComponent {
 
   onFileSelected(fileList: FileList | null, type: string) {
     if (!fileList) return;
+    const reader = new FileReader();
+
     const file = fileList[0];
     if (type === 'cover') {
-      this.selectedCover = file;
       console.log('Selected cover image:', fileList);
+      
+      reader.readAsText(file);
     }
   }
 }

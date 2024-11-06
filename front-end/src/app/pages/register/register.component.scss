@@ -68,7 +68,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 20px;
     overflow: auto;
     max-height: 100vh;
 }
@@ -89,7 +88,7 @@
 .top-left {
     display: flex;
     align-items: flex-start;
-    margin-left: 20px;
+    margin: 20px;
 }
 
 .top-left h1 {

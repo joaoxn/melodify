@@ -1,7 +1,7 @@
 <div class="grid-container">
     <div class="right-section">
         <div class="col-lg-9 mb-5 form-wrapper">
-            <h1 class="mb-5">Sign in to Your Account</h1>
+            <h1 class="mb-5">Sign in to Your <span>Account</span></h1>
             <form [formGroup]="form" (ngSubmit)="login()">
                 <ng-container *ngIf="globalErrorMessage">
                     <mat-error id="global-error">{{globalErrorMessage}}</mat-error>
@@ -46,7 +46,7 @@
             <h1>Melodify</h1>
         </div>
         <div class="image-container">
-            <img src="assets/background-image.png" alt="Background image" />
+            <img src="assets/funduzinho.png" alt="Background image" />
         </div>
     </div>
 </div>

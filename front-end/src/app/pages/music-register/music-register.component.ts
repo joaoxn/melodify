@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
+import { DigitsPipe } from '../../shared/pipes/digits.pipe';
 
 
 @Component({
@@ -28,24 +29,27 @@ export class MusicRegisterComponent {
   toppings = new FormControl('');
   toppingList: string[] = ['Pop', 'Trap', 'Geekie', 'K-pop', 'HipHop', 'JAVA ETC'];
 
-  uploadForm: FormGroup;
-selectedCover: File | null = null;
+  form: FormGroup;
+  coverSrc?: string;
 
-constructor(private formBuilder: FormBuilder) {
-  this.uploadForm = this.formBuilder.group({
-    cover: [null, Validators.required], 
-  });
-}
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      songName: ['', Validators.required],
+      artistName: [''],
+      cover: [null, Validators.required],
+    });
+  }
 
 
-onFileSelected(event: Event, type: 'cover') {
-  const input = event.target as HTMLInputElement;
-  if (input.files && input.files.length > 0) {
+  onFileSelected(fileList: FileList | null, type: string) {
+    if (!fileList) return;
+    const reader = new FileReader();
+
+    const file = fileList[0];
     if (type === 'cover') {
-      this.selectedCover = input.files[0];
-      console.log('Selected cover image:', this.selectedCover.name);
+      console.log('Selected cover image:', fileList);
+      
+      reader.readAsText(file);
     }
   }
 }
-}
-  

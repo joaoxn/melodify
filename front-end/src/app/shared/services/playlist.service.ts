@@ -44,25 +44,29 @@ export class PlaylistService {
 
   getFromRaw(rawPlaylist: RawPlaylist): Observable<Playlist> {
     const allowedUsers$ = forkJoin(
-        rawPlaylist.allowedUserIds.map(id => this.userService.get(id).pipe(
-            switchMap(user => this.userService.getFromRaw(user))
-        ))
+      rawPlaylist.allowedUserIds.map(id => this.userService.get(id).pipe(
+        switchMap(user => this.userService.getFromRaw(user))
+      ))
     );
 
     const songs$ = forkJoin(
-        rawPlaylist.songIds.map(id => this.songService.get(id).pipe(
-            switchMap(song => this.songService.getFromRaw(song))
-        ))
+      rawPlaylist.songIds.map(id => this.songService.get(id).pipe(
+        switchMap(song => this.songService.getFromRaw(song))
+      ))
     );
 
     return forkJoin([allowedUsers$, songs$]).pipe(
-        map(([allowedUsers, songs]) => ({
-            ...rawPlaylist, 
-            allowedUsers, 
-            songs
-        }))
-    );
-}
+      map(([allowedUsers, songs]) => {
+        const response: any = {
+          ...rawPlaylist,
+          allowedUsers,
+          songs
+        }
+        delete response.allowedUserIds;
+        delete response.songIds;
+        return response;
+      }))
+  }
 
 
   add(playlist: Request<RawPlaylist>): Observable<RawPlaylist> {

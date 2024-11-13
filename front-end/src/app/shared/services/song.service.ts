@@ -34,14 +34,16 @@ export class SongService {
     return this.http.get<RawSong>(`${this.apiUrl}/${id}`)
   }
 
-  getFromRaw(rawUser: RawSong): Observable<Song> {
-    const getPerformerObservable: Observable<Performer | undefined> = rawUser.performerId ? this.performerService.get(rawUser.performerId) : of(undefined);
+  getFromRaw(rawSong: RawSong): Observable<Song> {
+    const getPerformerObservable: Observable<Performer | undefined> = rawSong.performerId ? this.performerService.get(rawSong.performerId) : of(undefined);
     return getPerformerObservable.pipe(
       map((performer) => {
-        return {
-          ...rawUser,
+        const response = {
+          ...rawSong,
           performer: performer
         };
+        delete response.performerId;
+        return response;
       }),
       switchMap((obj) => {
         return forkJoin(obj.genreIds?.map(genreId => this.getGenre(genreId)))

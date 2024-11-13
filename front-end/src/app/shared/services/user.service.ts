@@ -29,10 +29,12 @@ export class UserService {
 
   convertRequestToRaw(user: Request<User> | Request<RawUser>): Request<RawUser> {
     if ('role' in user) {
-      return {
+      const response: any = {
         ...user,
         roleId: user.role.id
       };
+      delete response.role;
+      return response;
     }
     return user;
   }
@@ -40,10 +42,12 @@ export class UserService {
   getFromRaw(rawUser: RawUser): Observable<User> {
     return this.getRole(rawUser.roleId).pipe(
       map((role) => {
-        return {
+        const response: any = {
           ...rawUser,
           role: role
         };
+        delete response.roleId;
+        return response;
       })
     )
   }

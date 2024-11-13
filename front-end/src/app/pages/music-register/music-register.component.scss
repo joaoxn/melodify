@@ -1,0 +1,142 @@
+h3.preview {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+h4.preview {
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+/* Estilos principais */
+.all-songRegister {
+    background: linear-gradient(10deg, var(--primary-color), var(--tertiary-color), var(--secondary-color));
+    padding: 40px 0; 
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-songRegister {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: var(--secondary-color);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0px 4px 8px rgba(0, 242, 246, 0.66);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-color);
+    flex-grow: 1;
+}
+
+.container-songRegister h1 {
+    font-size: 1.8em;
+    text-align: center;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.songRegister-content {
+    width: 100%;
+    max-width: 600px;
+}
+
+.inputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 100%;
+}
+
+.input-label {
+    width: 100%;
+}
+
+@media (min-width: 769px) {
+    .input-label {
+        flex: 1 1 48%;
+    }
+}
+
+@media (max-width: 768px) {
+    .input-label {
+        width: 100%;
+    }
+}
+
+@media (max-height: 600px) {
+    .container-songRegister {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.filesInput {
+    width: 100%;
+}
+
+input.file-input {
+    background-color: var(--input-color);
+    color: var(--font-color);
+    border: 4px solid var(--border-color2);
+    margin-bottom: 10px;
+}
+
+input.file-input:focus {
+    border: 4px solid var(--border-color);
+}
+
+input.file-input::-webkit-file-upload-button {
+    background-color: var(--input-color);
+    color: var(--font-color);
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+input.file-input::-webkit-file-upload-button:hover {
+    border: 2px solid var(--border-color);
+}
+
+.music {
+    border: 0.1rem solid #4b516028;
+    border-radius: 1rem;
+    padding: 0.5rem;
+
+    .music-img {
+        width: 50px;
+        border-radius: 0.4rem;
+    }
+}
+
+.music-info {
+    gap: 20px;
+    width: 100%;
+
+    p {
+        margin-top: 1rem;
+        color: #999;
+    }
+
+    h4 {
+        margin-top: -1.5rem;
+        color: #999;
+    }
+
+    h3.selected {
+        font-weight: 500;
+    }
+
+    .not-selected {
+        font-size: large;
+        font-weight: 500;
+    }
+}

@@ -29,20 +29,38 @@ header {
         gap: 30%;
     }
 
+    .search-container {
+        position: relative;
+        width: 35em;
+    }
+
     .search-input {
+        width: 100%;
+        padding-left: 2.5rem;
         margin-top: 10px;
         padding: 0.2rem;
         border-radius: 40px;
         font-size: 0.9em;
-        color: #000;
-        width: 35em;
+        color: var(--font-color);
+        border: 3px solid var(--border-color);
+        background-color: var(--input-color);
     }
 
-    ::placeholder {
+    .search-container ::placeholder {
         text-align: center;
     }
 
-    i {
+    .search-icon {
+        position: absolute;
+        top: 60%;
+        left: 21.5rem; 
+        transform: translateY(-50%);
+        color: var(--white);
+        font-size: 1.2rem;
+        cursor: pointer;
+    }
+
+    i.fa-circle-user {
         font-size: 2.5rem;
         color: var(--border-color);
         cursor: pointer;

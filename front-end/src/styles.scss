@@ -129,3 +129,12 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.underlined {
+    border-bottom: 2px solid #00ECFF;
+}
+
+.disabled {
+    opacity: 0.2;
+    color: var(--font-color);
+}

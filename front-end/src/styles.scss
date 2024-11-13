@@ -1,3 +1,35 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the theme object.
+$melodify-theme: mat.define-theme((color: (theme-type: dark,
+                primary: mat.$cyan-palette,
+                tertiary: mat.$azure-palette,
+            ),
+            density: (scale: 0,
+            )));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+:root {
+    @include mat.all-component-themes($melodify-theme);
+}
+
+// Comment out the line below if you want to use the pre-defined typography utility classes.
+// For more information: https://material.angular.io/guide/typography#using-typography-styles-in-your-application.
+// @include mat.typography-hierarchy($melodify-theme);
+
+// Comment out the line below if you want to use the deprecated `color` inputs.
+// @include mat.color-variants-backwards-compatibility($melodify-theme);
+
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 /* Importing Bootstrap SCSS file. */
@@ -7,13 +39,93 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    color: white;
+}
+
+:root {
+    --primary-color: #0B1320;
+    --secondary-color: #111727;
+    --tertiary-color: #191e34;
+    --font-color: #777B86;
+    --font-colorHover: #818590;
+    --input-color: #3D4353;
+    --input-colorHover: #4b5160;
+    --secondary-input: #9A9DA3;
+    --form-color: #D9D9D9;
+    --white: #FFF;
+    --border-color2: #2c3245;
+    --border-color: #00ECFF;
+    --link-color: #F7DBFF;
+    --gradient-button: linear-gradient(to right, #00ECFF, #0072ff);
 }
 
 body {
     font-family: "Inter", "Helvetica Neue", "Helvetica";
     height: 100%;
+    overflow-x: hidden;
+}
+
+i {
+    font-size: 1.4rem;
+    &.big {
+        font-size: 1.8rem;
+    }
+}
+
+.white {
+    color: white;
+}
+
+.text-emphasis {
+    color: #00ECFF;
+
+    i {
+        color: #00ECFF;
+    }
 }
 
 .mat-mdc-form-field-error {
     color: hsl(0, 75%, 65%) !important;
+}
+
+.sneaky {
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.clicakble {
+    cursor: pointer;
+}
+
+.raw {
+    margin: 0 !important;
+}
+
+.logo {
+    width: 3.75rem;
+}
+
+.logo-small {
+    width: 3rem;
+}
+
+.logo-big {
+    width: 5rem;
+}
+
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--tertiary-color) #080f1c;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }

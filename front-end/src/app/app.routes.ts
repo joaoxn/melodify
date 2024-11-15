@@ -5,10 +5,12 @@ import { authGuard } from './shared/guards/auth.guard';
 import { HomeComponent } from './pages/home/home.component';
 import { MusicRegisterComponent } from './pages/music-register/music-register.component';
 import { LoginComponent } from './pages/login/login.component';
+import { UserPerfilComponent } from './pages/user-perfil/user-perfil.component';
 
 export const routes: Routes = [
     { path: 'register', component: RegisterComponent, canActivate: [authGuard] },
     { path: 'music-register', component: MusicRegisterComponent, canActivate: [authGuard] },
+    { path: 'user-perfil', component: UserPerfilComponent, canActivate: [authGuard] },
     { path: 'login', component: LoginComponent, canActivate: [authGuard] },
     { path: '',   redirectTo: 'home', pathMatch: 'full' },
     {

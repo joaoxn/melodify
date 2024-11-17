@@ -6,6 +6,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { MusicRegisterComponent } from './pages/music-register/music-register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { UserPerfilComponent } from './pages/user-perfil/user-perfil.component';
+import { LibraryComponent } from './pages/library/library.component';
 
 export const routes: Routes = [
     { path: 'register', component: RegisterComponent, canActivate: [authGuard] },
@@ -15,7 +16,8 @@ export const routes: Routes = [
     { path: '',   redirectTo: 'home', pathMatch: 'full' },
     {
         path: '', component: PageComponent, canActivate: [authGuard], children: [
-            { path: 'home', component: HomeComponent }
+            { path: 'home', component: HomeComponent },
+            { path: 'library', component: LibraryComponent}
         ]
     },
 ];

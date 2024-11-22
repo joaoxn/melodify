@@ -17,11 +17,11 @@
       "name": "João Victor de Souza",
       "email": "jvso@yahoo.com",
       "password": "Senha123",
-      "roleId": "0",
       "config": {
         "loopState": 1,
         "volume": 56
-      }
+      },
+      "roleId": "0"
     }
   ],
   "performer": [

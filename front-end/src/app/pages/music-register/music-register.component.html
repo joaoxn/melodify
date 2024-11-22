@@ -1,0 +1,60 @@
+<div class="all-songRegister">
+    <div class="container-songRegister d-flex">
+        <h1>Song Register</h1>
+        <div class="songRegister-content">
+            <form [formGroup]="form">
+                <div class="inputs">
+                    <div class="filesInput">
+                        <label for="file-song" class="d-flex">Insert Song File</label>
+                        <input type="file" #fileSong id="file-song" (change)="onFileSelected(fileSong.files, 'song')" 
+                        class="file-input form-control" accept="audio/*" />
+                    </div>
+                    <div class="input-label">
+                        <label class="form-label" for="songName">Song Name</label>
+                        <mat-form-field>
+                            <input id="songName" matInput placeholder="Name of your song here" formControlName="songName">
+                        </mat-form-field>
+                    </div>
+                    <div class="input-label">
+                        <label class="form-label" for="name">Your artistic name </label>
+                        <mat-form-field>
+                            <input id="name" matInput placeholder="Your artistic name here" formControlName="artistName">
+                        </mat-form-field>
+                    </div>
+                    <div class="input-label">
+                        <label class="form-label" for="songGenre">Genre(s)</label>
+                        <mat-form-field>
+                            <mat-label>Click to select</mat-label>
+                            <mat-select id="songGenre" [formControl]="toppings" multiple>
+                                @for (topping of toppingList; track topping) {
+                                <mat-option [value]="topping">{{topping}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="filesInput">
+                        <label for="file-cover" class="d-flex">Insert Cover</label>
+                        <input type="file" #fileCover id="file-cover" (change)="onFileSelected(fileCover.files, 'cover')" 
+                        class="file-input form-control" accept="image/*" />
+                    </div>
+
+                    <h6 class="text-center w-100">Preview</h6>
+                    <div class="sneaky music d-flex w-100 justify-content-between align-items-center">
+                        <div class="music-info d-flex align-items-center">
+                            <p>01</p>
+                            <img [src]="coverSrc || 'assets/no-album-cover.jpg'" alt="music cover" class="music-img">
+                            <div class="w-100">
+                                <h3 class="preview">{{ form.get('songName')?.value || "No Name" }}</h3>
+                                <h4 class="preview">{{ form.get('artistName')?.value || "Unknown Artist" }}</h4>
+                            </div>
+                        </div>
+                        <i class="fa-regular fa-circle-play"></i>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-lg btn-outline-primary shadow-lg w-100 btn-custom btn-animated text-white m-3">
+                    Register
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

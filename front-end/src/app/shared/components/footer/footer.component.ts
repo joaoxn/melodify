@@ -61,7 +61,7 @@ export class FooterComponent implements OnInit {
 
     this.audio.addEventListener('play', () => this.playing = true);
     this.audio.addEventListener('pause', () => this.playing = false);
-    this.audio.addEventListener('ended', this.handleEndOfSong);
+    this.audio.addEventListener('ended', () => this.handleEndOfSong());
 
     this.playlistService.getCurrentPlaylist().subscribe(playlist => this.currentPlaylist = playlist);
 
@@ -94,10 +94,10 @@ export class FooterComponent implements OnInit {
           this.next();
         break;
       case LoopState.ONE:
-        this.goTo(0);
         this.audio?.play();
         break;
       case LoopState.ALL:
+        this.next();
         this.audio?.play();
         break;
       default:

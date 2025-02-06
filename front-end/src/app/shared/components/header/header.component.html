@@ -1,14 +1,21 @@
 <header>
     <div class="left-header">
         <nav class="d-flex">
-            <li class="underlined"><a href="">Discover</a></li>
-            <li class="disabled"><a href="">My Library</a></li>
+            <li [ngClass]="{'underlined': currentRoute === '/home', 'disabled': currentRoute !== '/home'}">
+                <a routerLink="/home">Discover</a>
+            </li>
+            <li [ngClass]="{'underlined': currentRoute === '/library', 'disabled': currentRoute !== '/library'}">
+                <a routerLink="/library">My Library</a>
+            </li>
         </nav>
     </div>
     <div class="right-header">
         <nav class="d-flex align-items-center">
-            <input type="text" placeholder="Shall we listen to a little song?" class="search-input" />
-            <i class="fa-solid fa-circle-user"></i>
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" placeholder="Shall we listen to a little song?" class="search-input" />
+            </div>
+            <i routerLink="user-perfil" class="fa-solid fa-circle-user"></i>
         </nav>
     </div>
 </header>

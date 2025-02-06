@@ -1,1 +1,35 @@
-<p>footer works!</p>
+<footer id="main-wrapper">
+    <i class="fa-solid fa-music text-emphasis" aria-hidden="true"></i>
+    <div id="controls">
+        <button class="sneaky" (click)="previous()">
+            <i class="fa-regular fa-circle-left" aria-hidden="true"></i>
+        </button>
+        <button class="sneaky" (click)="playing ? audio?.pause() : audio?.play()">
+            <i [ngClass]="['big', 'fa-solid', playing ? 'fa-pause' : 'fa-play']" aria-hidden="true"></i>
+        </button>
+        <button class="sneaky" (click)="next()">
+            <i class="fa-regular fa-circle-right" aria-hidden="true"></i>
+        </button>
+        <button class="sneaky" (click)="shuffle()">
+            <i class="fa-solid fa-shuffle" aria-hidden="true"></i>
+        </button>
+        <button class="sneaky" (click)="nextLoopState()">
+            <i [ngClass]="{'fa-solid': true, 'fa-repeat': loop == 0 || loop == 2, 'custom-repeat-1': loop == 1, 'text-emphasis': loop !== 0}" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div id="seekbar-dashboard">
+        <span>{{ formatTime(seekbarInput.value) }}</span>
+        <mat-slider id="seekbar" min="0" [max]="songDuration" step="1" discrete [displayWith]="formatTime" #seekbar>
+            <input matSliderThumb #seekbarInput [value]="currentTime" (input)="goTo(seekbarInput.value)">
+        </mat-slider>
+        <span>{{ formatTime(songDuration) }}</span>
+    </div>
+    <div id="volume-dashboard">
+        <i class="fa fa-volume-up" aria-hidden="true"></i>
+        <mat-slider id="volume-slider" min="0" max="100" step="1" #volumeSlider>
+            <input matSliderThumb [(ngModel)]="volume" value="100" (input)="changeVolume()">
+        </mat-slider>
+        <span>{{ volume }}%</span>
+    </div>
+    <i class="text-emphasis fa-regular fa-circle-up" aria-hidden="true"></i>
+</footer>

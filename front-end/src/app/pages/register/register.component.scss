@@ -68,29 +68,27 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 20px;
     overflow: auto;
     max-height: 100vh;
 }
 
-.left-image-container img {
-    max-width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-
-.left-image-container {
+.image-container {
     height: 80%;
     width: 100%;
     display: flex;
     justify-content: right;
+    
+    img {
+        max-width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 }
 
 .top-left {
     display: flex;
     align-items: flex-start;
-    margin-left: 20px;
+    margin: 20px;
 }
 
 .top-left h1 {
@@ -101,13 +99,13 @@
 }
 
 .logo {
-    width: 60px;
+    width: 3.75rem;
     height: auto;
     padding: 5px;
 }
 
 .right-section {
-    background-color: var(--secundary-color);
+    background-color: var(--secondary-color);
     display: flex;
     justify-content: center;
     align-items: center;

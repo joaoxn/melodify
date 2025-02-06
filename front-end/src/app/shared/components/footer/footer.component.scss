@@ -1,0 +1,50 @@
+#main-wrapper,
+#main-wrapper>* {
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+
+    *:not(.sneaky) {
+        margin: 0 0.4rem;
+    }
+
+
+    div#controls {
+        width: 15rem;
+        margin-left: 5rem;
+    }
+
+    .custom-repeat-1 {
+        background-image: url(/assets/repeat-1.png);
+        background-size: cover;
+        width: 1.4rem;
+        height: 1.4rem;
+        margin-top: 0.18rem;
+
+        &.text-emphasis {
+            background-image: url(/assets/repeat-1-emphasis.png);
+        }
+    }
+
+    div#seekbar-dashboard {
+        flex-grow: 1;
+        max-width: 60%;
+        margin: 0 5rem;
+
+        #seekbar {
+            flex-grow: 1;
+        }
+    }
+
+    #volume-dashboard {
+        border: 0.15rem solid #3740586e;
+        border-radius: 0.5rem;
+    }
+}
+
+::ng-deep .mdc-slider__value-indicator {
+    background-color: hsl(200, 61%, 30%) !important; // Adjust this color to the desired darker shade
+}

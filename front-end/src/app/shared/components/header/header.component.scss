@@ -29,32 +29,40 @@ header {
         gap: 30%;
     }
 
+    .search-container {
+        position: relative;
+        width: 35em;
+    }
+
     .search-input {
+        width: 100%;
+        padding-left: 2.5rem;
         margin-top: 10px;
         padding: 0.2rem;
         border-radius: 40px;
         font-size: 0.9em;
-        width: 35em;
-        border: 3.5px solid var(--white);
+        color: var(--font-color);
+        border: 3px solid var(--border-color);
         background-color: var(--input-color);
-
-        &:hover {
-            border: 3.5px solid var(--border-color);
-            transition: border-color 0.3s ease;
-        }
-
-        &:focus {
-            outline: none;
-            border: 3.5px solid var(--border-color);
-            color: var(--font);
-        }
     }
 
-    ::placeholder {
+    .search-container ::placeholder {
         text-align: center;
     }
 
-    i {
+    .search-icon {
+        position: absolute;
+        top: 60%;
+        left: 21.5rem; 
+        transform: translateY(-50%);
+        color: var(--white);
+        font-size: 1.2rem;
+        cursor: pointer;
+    }
+
+    i.fa-circle-user {
+        font-size: 2.5rem;
+        color: var(--border-color);
         cursor: pointer;
         font-size: 2em;
 

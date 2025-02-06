@@ -7,12 +7,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { UserService } from '../../shared/services/user.service';
 import { FormValidationService } from '../../shared/services/form-validation.service';
+import { LoopState } from '../../shared/enums/loop-state';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [
-    RouterLink, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, 
+    RouterLink, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule,
     FormsModule, ReactiveFormsModule
   ],
   templateUrl: './register.component.html',
@@ -23,10 +24,13 @@ export class RegisterComponent implements OnInit {
   form!: FormGroup;
   hidePassword = true;
 
+  serviceLoading = false;
+  globalErrorMessage?: string;
+
   constructor(
     private userService: UserService, private formValidationService: FormValidationService,
     private fb: FormBuilder, private router: Router
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -36,56 +40,66 @@ export class RegisterComponent implements OnInit {
       confirmPassword: ['', Validators.required]
     })
   }
-
+  
   confirmPasswordChange() {
     const password = this.form.get('password');
     const confirmPassword = this.form.get('confirmPassword');
-  
+    
     if (confirmPassword && password && confirmPassword.value !== password.value) {
       confirmPassword.setErrors({ passwordMismatch: true });
     } else {
       confirmPassword?.setErrors(null);  // Clear error if they match
     }
   }
-
+  
   togglePasswordVisibility() {
     this.hidePassword = !this.hidePassword;
   }
   
-  register() {
-    if (this.form.invalid) {
-      console.error('Form is invalid');
-      this.form.markAllAsTouched();
-      console.log(this.form);
-      return;
-    }
-
-    const newUser = {
-      name: this.form.get('name')!.value,
-      email: this.form.get('email')!.value,
-      password: this.form.get('password')!.value,
-      roleId: "0"
-    }
-
-    console.log("Adding new user:", newUser.name, "with email:", newUser.email);
-
-    this.userService.add(newUser).subscribe({
-      next: (user) => {
-        console.log('User added successfully:', user);
-      },
-      error: (error) => {
-        console.error('Error adding user:', error);
-      }
-    });
-
-    this.router.navigate(['/home']);
-  }
-
   hasError(inputName: string): boolean {
     return this.formValidationService.inputHasError(this.form, inputName);
   }
 
   getError(inputName: string): string | undefined {
     return this.formValidationService.getInputErrorMessage(this.form, inputName);
+  }
+
+  register() {
+    if (this.form.invalid) {
+      console.error('Form is invalid');
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const defaultUserErrorMessage = "E-mail já cadastrado. Entre ou cadastre um novo e-mail!";
+    const defaultServerErrorMessage = "Erro ao cadastrar-se! Tente novamente mais tarde...";
+
+    const newUser = {
+      name: this.form.get('name')!.value,
+      email: this.form.get('email')!.value,
+      password: this.form.get('password')!.value,
+      roleId: "0",
+      config: {
+        loopState: LoopState.OFF,
+        volume: 100
+      }
+    }
+
+    console.log("Adding new user:", newUser.name, "with email:", newUser.email);
+
+    this.userService.register(newUser).subscribe({
+      next: (user) => {
+        console.log('User added successfully:', user);
+        this.router.navigate(['/home']);
+      },
+      error: (error: Error) => {
+        this.serviceLoading = false;
+        console.error(error);
+        if (error.message.slice(0, 21) === "DuplicateEntityError:")
+          this.globalErrorMessage = defaultUserErrorMessage;
+        else
+          this.globalErrorMessage = "Erro ao cadastrar-se! Tente novamente mais tarde...";
+      }
+    });
   }
 }

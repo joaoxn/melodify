@@ -4,7 +4,7 @@
             <img src="assets/Melodify logo.png" alt="Melodify Logo" class="logo">
             <h1>Melodify</h1>
         </div>
-        <div class="left-image-container">
+        <div class="image-container">
             <img src="assets/remedin.png" alt="Background image">
         </div>
     </div>
@@ -12,6 +12,9 @@
         <div class="col-lg-9 mb-5 form-wrapper">
             <h1 class="mb-5">Register</h1>
             <form [formGroup]="form" (submit)="register()">
+                @if (globalErrorMessage) {
+                    <mat-error id="global-error" class="text-center">{{globalErrorMessage}}</mat-error>
+                }
                 <div class="inputs-line">
                     <div class="form-outline mb-4 custom-form">
                         <label class="form-label" for="name">Full Name</label>
@@ -51,7 +54,7 @@
                         <label for="confirmPassword">Confirm Password</label>
                         <mat-form-field appearance="fill">
                             <input placeholder="Confirm your password" id="confirmPassword" matInput (input)="confirmPasswordChange()"
-                                [type]="hidePassword ? 'password' : 'text'" formControlName="confirmPassword" required />
+                                type="password" formControlName="confirmPassword" required />
                             @if (hasError("confirmPassword")) {
                                 <mat-error>{{ getError("confirmPassword") }}</mat-error>
                             }
@@ -61,7 +64,7 @@
                 <button type="submit" class="btn btn-lg btn-outline-primary shadow-lg w-100 btn-custom btn-animated text-white">
                     Register
                 </button>
-                <a routerLink="login" class="link text-center white">
+                <a routerLink="/login" class="link text-center white">
                     Already have an account? Sign-in
                 </a>
             </form>

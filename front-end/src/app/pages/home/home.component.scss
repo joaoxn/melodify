@@ -1,5 +1,11 @@
-*{
+* {
     cursor: default;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 .popular-songs {
@@ -8,14 +14,18 @@
     h1 {
         font-size: 2em;
         font-weight: 500;
+        text-align: center;
     }
     
     .popular-songs-images {
+        display: flex;
+        flex-wrap: wrap;
         gap: 30px;
+        justify-content: center; 
     }
 
-    .pupular-song img  {
-        width: 15vw;
+    img {
+        width: 14vw;
         height: 25vh;
         border-radius: 10%;
         cursor: pointer;
@@ -23,45 +33,52 @@
 }
 
 .low-content {
-    gap: 30px;    
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
 
 .top-artists {
     flex: 2;
     background-color: var(--secundary-color);
     margin-left: 20px;
     border-radius: 20px;
-    
+    padding: 1em;
+
     h1 {
         font-size: 1em;
         font-weight: 400;
-        margin: 0em 1em 0 1.5em;
+        margin: 0 1em;
     }
 
     .artist-content {
-        margin: 0em 1em 0 2em;
+        display: flex;
+        flex-direction: column;
         align-items: center;
+        margin: 0 1em;
 
-    img {
-        cursor: pointer;
+        img {
+            cursor: pointer;
             border-radius: 50%;
-        width: 7em;
-        height: 7em;
+            width: 7em;
+            height: 7em;
         }
 
-    h2 {
-        font-size: 1.2em;
-        font-weight: 500;
-        text-align: center;
-    }
+        h2 {
+            font-size: 1.2em;
+            font-weight: 500;
+            text-align: center;
+        }
 
-    p {
-        font-size: 0.9em;
-        font-weight: 400;
-        text-align: center;
-        margin-top: -1.5em;
-        color: #555;
+        p {
+            font-size: 0.9em;
+            font-weight: 400;
+            text-align: center;
+            margin-top: -1.5em;
+            color: #555;
+        }
     }
-}
 }
 
 .genres {
@@ -71,11 +88,10 @@
     border-radius: 20px;
     max-height: 250px;
     overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-width: none;
     display: flex;
-    flex-wrap: wrap; 
-    gap: 0.5em; 
+    flex-wrap: wrap;
+    gap: 0.5em;
+    scrollbar-width: none;
 }
 
 .genres::-webkit-scrollbar {
@@ -85,12 +101,13 @@
 .genres h1 {
     font-size: 1em;
     font-weight: 400;
-    margin: -1em 0em -0.7em 1em;
+    margin: -1em 0 -0.7em 1em;
     flex-basis: 100%;
+    text-align: center;
 }
 
 .container-genres {
-    flex: 1 1 45%; 
+    flex: 1 1 45%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -104,4 +121,96 @@
     border-radius: 50px;
     padding: 0.5em;
 }
+
+@media (max-width: 1024px) {
+    .popular-songs-images {
+        gap: 20px;
+    }
+
+    .popular-song img {
+        width: 20vw;
+        height: 30vh;
+    }
+
+    .low-content {
+        flex-direction: column;
+    }
+
+    .top-artists {
+        margin-left: 0;
+    }
+
+    .genres {
+        max-height: 200px;
+    }
+
+    .genres h1 {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 768px) {
+    .popular-song img {
+        width: 30vw;
+        height: 35vh;
+    }
+
+    h1, .genres h1 {
+        font-size: 0.9em;
+    }
+
+    .artist-content img {
+        width: 6em;
+        height: 6em;
+    }
+}
+
+@media (max-width: 480px) {
+    .popular-songs {
+        margin: 10px;
+
+        h1 {
+            font-size: 1.5em;
+        }
+    }
+
+    .popular-song img {
+        width: 40vw;
+        height: 45vh;
+    }
+
+    .low-content {
+        gap: 10px;
+    }
+
+    .top-artists {
+        margin: 0;
+        padding: 0.5em;
+
+        h1 {
+            font-size: 0.8em;
+        }
+    }
+
+    .artist-content img {
+        width: 5em;
+        height: 5em;
+    }
+
+    .artist-content h2 {
+        font-size: 1em;
+    }
+
+    .artist-content p {
+        font-size: 0.8em;
+    }
+
+    .genres {
+        max-height: 150px;
+        padding: 0.5em;
+    }
+
+    .genres h1 {
+        font-size: 0.8em;
+    }
 }

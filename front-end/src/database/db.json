@@ -5,23 +5,23 @@
       "name": "Admin",
       "email": "admin@email.com",
       "password": "password",
-      "roleId": "0",
-      "playlistIds": []
+      "playlistIds": [],
+      "config": {
+        "loopState": 2,
+        "volume": 56
+      },
+      "roleId": "0"
     },
     {
+      "id": "549b",
       "name": "João Victor de Souza",
       "email": "jvso@yahoo.com",
       "password": "Senha123",
-      "roleId": "0",
       "config": {
         "loopState": 1,
         "volume": 56
       },
-      "id": "549b",
-      "role": {
-        "id": "0",
-        "name": "user"
-      }
+      "roleId": "0"
     }
   ],
   "performer": [
@@ -100,6 +100,7 @@
       "allowedUserIds": [
         "0"
       ],
+      "views": 0,
       "songIds": [
         "1",
         "2",
